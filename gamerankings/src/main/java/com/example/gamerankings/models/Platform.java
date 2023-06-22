@@ -1,4 +1,4 @@
-package models;
+package com.example.gamerankings.models;
 
 public enum Platform {
     PS1,

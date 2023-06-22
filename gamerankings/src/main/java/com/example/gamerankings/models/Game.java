@@ -1,11 +1,13 @@
-package models;
+package com.example.gamerankings.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "games")
@@ -33,6 +35,9 @@ public class Game {
     @Column
     private ArrayList<Platform> platforms;
 
+    @OneToMany(mappedBy = "game")
+    private Set<GameUser> gameUsers = new HashSet<>();
+
     @ManyToMany
     @JsonIgnoreProperties({"games"})
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
@@ -51,4 +56,18 @@ public class Game {
     )
     private List<User> users;
 
+    public Game(String name, String image, String genre, String description, int yearOfRelease, ArrayList<Platform> platforms) {
+        this.name = name;
+        this.image = image;
+        this.genre = genre;
+        this.description = description;
+        this.yearOfRelease = yearOfRelease;
+        this.platforms = platforms;
+        this.gameUsers = new HashSet<>();
+        this.users = new ArrayList<>();
+    }
+
+    public Game(){
+
+    }
 }
