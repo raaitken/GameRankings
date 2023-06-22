@@ -29,7 +29,7 @@ public class DataLoader implements ApplicationRunner {
     }
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         platforms.add(Platform.PS5);
         Game ff16 = new Game("Final Fantasy XVI", "imgsrc", "RPG", "Description", 2023, platforms);
         gameRepository.save(ff16);
