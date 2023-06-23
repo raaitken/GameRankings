@@ -1,6 +1,7 @@
 package com.example.gamerankings;
 
 import com.example.gamerankings.models.Game;
+import com.example.gamerankings.models.GameUser;
 import com.example.gamerankings.models.Platform;
 import com.example.gamerankings.models.User;
 import com.example.gamerankings.repositories.GameRepository;
@@ -34,9 +35,16 @@ class GamerankingsApplicationTests {
 		platforms.add(Platform.NintendoWii);
 		Game game1 = new Game("Wii Sports", "imgsrc", "Sports", "Game about sports on the Wii", 2006, platforms);
 		gameRepository.save(game1);
+		Game game2 = new Game("Final Fantasy XVI", "imgsrc", "RPG", "Description", 2023, platforms);
+		gameRepository.save(game2);
 
 		User user1 = new User("samhouston", "password");
 		userRepository.save(user1);
+
+		GameUser gu1 = new GameUser(game1, user1);
+		gameUserRepository.save(gu1);
+		GameUser gu2 = new GameUser(game2, user1);
+		gameUserRepository.save(gu2);
 	}
 
 }
