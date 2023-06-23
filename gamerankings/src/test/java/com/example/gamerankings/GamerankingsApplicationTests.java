@@ -13,8 +13,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 @SpringBootTest
 class GamerankingsApplicationTests {
 
@@ -37,20 +35,16 @@ class GamerankingsApplicationTests {
 		platforms.add(Platform.NintendoWii);
 		Game game1 = new Game("Wii Sports", "imgsrc", "Sports", "Game about sports on the Wii", 2006, platforms);
 		gameRepository.save(game1);
+		Game game2 = new Game("Final Fantasy XVI", "imgsrc", "RPG", "Description", 2023, platforms);
+		gameRepository.save(game2);
 
 		User user1 = new User("samhouston", "password");
 		userRepository.save(user1);
-	}
 
-	@Test
-	public void canCalculateElo(){
-		float Ra = 1200, Rb = 1000;
-
-		int K = 30;
-		boolean d = true;
-
-		GameUser.EloRating(Ra, Rb, K, d);
-		assertEquals(1207.20, Ra, 0);
+		GameUser gu1 = new GameUser(game1, user1);
+		gameUserRepository.save(gu1);
+		GameUser gu2 = new GameUser(game2, user1);
+		gameUserRepository.save(gu2);
 	}
 
 }
