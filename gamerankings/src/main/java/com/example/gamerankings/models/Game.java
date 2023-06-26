@@ -21,6 +21,9 @@ public class Game {
     private String name;
 
     @Column
+    private String slug;
+
+    @Column
     private String image;
 
     @Column
@@ -56,8 +59,9 @@ public class Game {
     )
     private List<User> users;
 
-    public Game(String name, String image, String genre, String description, int yearOfRelease, ArrayList<Platform> platforms) {
+    public Game(String name, String slug, String image, String genre, String description, int yearOfRelease, ArrayList<Platform> platforms) {
         this.name = name;
+        this.slug = slug;
         this.image = image;
         this.genre = genre;
         this.description = description;
@@ -85,6 +89,14 @@ public class Game {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public void setSlug(String slug) {
+        this.slug = slug;
     }
 
     public String getImage() {

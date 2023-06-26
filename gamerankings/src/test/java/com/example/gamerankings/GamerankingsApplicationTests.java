@@ -13,6 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @SpringBootTest
 class GamerankingsApplicationTests {
 
@@ -33,9 +35,9 @@ class GamerankingsApplicationTests {
 	public void createGameAndUser(){
 		ArrayList<Platform> platforms = new ArrayList<>();
 		platforms.add(Platform.NintendoWii);
-		Game game1 = new Game("Wii Sports", "imgsrc", "Sports", "Game about sports on the Wii", 2006, platforms);
+		Game game1 = new Game("Wii Sports", "wii-sports", "imgsrc", "Sports", "Game about sports on the Wii", 2006, platforms);
 		gameRepository.save(game1);
-		Game game2 = new Game("Final Fantasy XVI", "imgsrc", "RPG", "Description", 2023, platforms);
+		Game game2 = new Game("Final Fantasy XVI", "final-fantasy-xvi", "imgsrc", "RPG", "Description", 2023, platforms);
 		gameRepository.save(game2);
 
 		User user1 = new User("samhouston", "password");
@@ -45,6 +47,12 @@ class GamerankingsApplicationTests {
 		gameUserRepository.save(gu1);
 		GameUser gu2 = new GameUser(game2, user1);
 		gameUserRepository.save(gu2);
+	}
+
+	@Test
+	public void canFindGameBySlug(){
+		Game game = gameRepository.findBySlug("final-fantasy-xvi");
+		assertEquals("Final Fantasy XVI", game.getName());
 	}
 
 }

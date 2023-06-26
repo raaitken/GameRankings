@@ -35,11 +35,18 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         platforms.add(Platform.PS5);
-        Game ff16 = new Game("Final Fantasy XVI", "imgsrc", "RPG", "Description", 2023, platforms);
+        Game ff16 = new Game("Final Fantasy XVI", "final-fantasy-xvi", "imgsrc", "RPG", "Description", 2023, platforms);
         gameRepository.save(ff16);
 
-        Game diablo4 = new Game("Diablo 4", "imgsrc", "ARPG", "Description", 2023, platforms);
+        platforms.add(Platform.XboxSeries);
+        platforms.add(Platform.PC);
+        Game diablo4 = new Game("Diablo 4", "diablo-4", "imgsrc", "ARPG", "Description", 2023, platforms);
         gameRepository.save(diablo4);
+
+        platforms.clear();
+        platforms.add(Platform.NintendoWii);
+        Game game1 = new Game("Wii Sports", "wii-sports", "imgsrc", "Sports", "Game about sports on the Wii", 2006, platforms);
+        gameRepository.save(game1);
 
         User ross = new User("rossaitken", "password");
         userRepository.save(ross);
