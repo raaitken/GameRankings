@@ -1,6 +1,7 @@
 package com.example.gamerankings.models;
 
 public enum Platform {
+    PC,
     PS1,
     PS2,
     PS3,

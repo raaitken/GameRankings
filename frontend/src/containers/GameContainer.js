@@ -23,15 +23,15 @@ const GameContainer = () => {
         setGamesFunc();
     }, [])
 
-    const findGameById = (id) => {
+    const findGameBySlug = (slug) => {
       return games.find((game) => {
-        return game.id === parseInt(id);
+        return game.slug === slug;
       })
     };
 
     const GameDetailWrapper = () => {
-      const { id } = useParams();
-      let foundGame = findGameById(id);
+      const { slug } = useParams();
+      let foundGame = findGameBySlug(slug);
 
       return <GameDetail game={foundGame} />;
     }
@@ -46,11 +46,41 @@ const GameContainer = () => {
       setGameTwo(games[GetRandomIndex()]);
     }
 
+    function Probability(rating1, rating2) {
+      return (
+          (1.0 * 1.0) / (1 + 1.0 * Math.pow(10, (1.0 * (rating1 - rating2)) / 400))
+      );
+      }
+
+      function EloRating(Ra, Rb, K, d) {
+        // To calculate the Winning
+        // Probability of Player B
+        let Pb = Probability(Ra, Rb);
+        
+        // To calculate the Winning
+        // Probability of Player A
+        let Pa = Probability(Rb, Ra);
+        
+        // Case 1 When Player A wins
+        // Updating the Elo Ratings
+        if (d === true) {
+            Ra = Ra + K * (1 - Pa);
+            Rb = Rb + K * (0 - Pb);
+        }
+        
+        // Case 2 When Player B wins
+        // Updating the Elo Ratings
+        else {
+            Ra = Ra + K * (0 - Pa);
+            Rb = Rb + K * (1 - Pb);
+        }
+      }
+
     return (
         <Routes>
-            <Route path='/:id' element={<GameDetailWrapper />} />
+            <Route path='/:slug' element={<GameDetailWrapper />} />
         </Routes>
     );
 }
- 
+
 export default GameContainer;

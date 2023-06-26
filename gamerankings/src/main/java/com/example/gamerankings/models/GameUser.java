@@ -26,7 +26,7 @@ public class GameUser {
     public GameUser(Game game, User user) {
         this.game = game;
         this.user = user;
-        this.rating = 1;
+        this.rating = 1200;
     }
 
     public GameUser(){
