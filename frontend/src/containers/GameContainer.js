@@ -7,6 +7,8 @@ import GameDetail from '../components/games/GameDetail';
 const GameContainer = () => {
 
     const [games, setGames] = useState([]);
+    const [gameOne, setGameOne] = useState();
+    const [gameTwo, setGameTwo] = useState();
 
     useEffect(() => {
       const request = new Request();
@@ -17,6 +19,8 @@ const GameContainer = () => {
         .then((data) => {
           setGames(data[0]);
         })
+
+        setGamesFunc();
     }, [])
 
     const findGameById = (id) => {
@@ -30,6 +34,16 @@ const GameContainer = () => {
       let foundGame = findGameById(id);
 
       return <GameDetail game={foundGame} />;
+    }
+
+    const GetRandomIndex = () => {
+      const randomIndex = Math.floor(Math.random() * games.length);
+      return randomIndex;
+    }
+
+    const setGamesFunc = () => {
+      setGameOne(games[GetRandomIndex()]);
+      setGameTwo(games[GetRandomIndex()]);
     }
 
     return (
