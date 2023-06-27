@@ -1,10 +1,12 @@
 import React from 'react';
+
 import { Route, Routes, useLocation } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import Login from './Login';
-import GameContainer from './GameContainer';
 
-const MainContainer = () => {
+import GameContainer from './GameContainer';
+import Login from './login/Login';
+
+const MainContainer = ({loggedInUser}) => {
   const location = useLocation();
 
   // Check if the current route is the login page
@@ -15,7 +17,7 @@ const MainContainer = () => {
       {!isLoginPage && <NavBar />}
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/games/*" element={<GameContainer />} />
+        <Route path='/games/*' element={<GameContainer loggedInUser={loggedInUser}/>} />
       </Routes>
     </div>
   );
