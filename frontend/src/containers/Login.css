@@ -1,22 +1,29 @@
-.Applogin {
-    text-align: center;
-    background-color: #9A2AE9;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .login-form {
-    background-color: #9A2AE9;
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 400px; 
-    margin: 0 auto; 
-  }
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  text-align: center;
+  background-color: #9A2AE9;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px);
+  color: #9A2AE9;
+}
+
+.login-form {
+  background-color: #9A2AE9;
+  border-radius: 5px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Rest of your CSS styles */
+
   
   .profile-picture {
     width: 120px;
@@ -24,10 +31,15 @@
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto; 
-    margin-bottom: 10px;
+    margin-bottom: 50px;
+    margin-top: 130px;
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .forgot-password{
+    margin-bottom: 130px;
   }
   
   .profile-picture img {
@@ -51,7 +63,8 @@
   
   @media (max-width: 576px) {
     .login-form {
-      width: 80%;
+      width: 100%;
+      
     }
     
     input[type="text"],
