@@ -7,7 +7,7 @@ import profileImage from './images/jb.jpeg';
 
 function Login() {
   return (
-    <div className="Applogin">
+    <div className="App">
       <header className="App-header">
         <div className="login-form">
           <div className="profile-picture">
