@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useParams } from 'react-router-dom';
 import Request from '../helpers/request';
-import GameDetail from '../components/games/GameDetail';
+import GameDetail from '../components/games/GameDetail.js';
 
 
 const GameContainer = () => {
