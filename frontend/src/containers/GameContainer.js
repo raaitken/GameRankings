@@ -20,8 +20,27 @@ const GameContainer = () => {
           setGames(data[0]);
         })
 
-        setGamesFunc();
+        getGameOne();
+        getGameTwo();
+
+        // setGamesFunc();
     }, [])
+
+    const randomInt = (min, max) => {
+      return Math.floor(Math.random() * max) + min;
+    }
+
+    const getGameOne = () => {
+        const newFetch = fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 20000) + "&page_size=40&key=c3777d97bab94b3ebc7217158e98bb37")
+        .then((response) => response.json())
+        .then((data) => setGameOne(data.results[randomInt(0, 39)]))
+    }
+
+    const getGameTwo = () => {
+        const newFetch = fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 20000) + "&page_size=40&key=c3777d97bab94b3ebc7217158e98bb37")
+        .then((response) => response.json())
+        .then((data) => setGameTwo(data.results[randomInt(0, 39)]))
+    }
 
     const findGameBySlug = (slug) => {
       return games.find((game) => {
@@ -41,10 +60,10 @@ const GameContainer = () => {
       return randomIndex;
     }
 
-    const setGamesFunc = () => {
-      setGameOne(games[GetRandomIndex()]);
-      setGameTwo(games[GetRandomIndex()]);
-    }
+    // const setGamesFunc = () => {
+    //   setGameOne(games[GetRandomIndex()]);
+    //   setGameTwo(games[GetRandomIndex()]);
+    // }
 
     function Probability(rating1, rating2) {
       return (
