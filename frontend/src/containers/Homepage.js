@@ -7,7 +7,8 @@ import RankingsImage from './images/Ranking.png'
 import ChartsImage from './images/charts.jpeg'
 import UsersImage from './images/users.png'
 
-const App = () => {
+
+const Homepage = () => {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
   const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
 
@@ -27,11 +28,15 @@ const App = () => {
   return (
     <div className="container">
       {isDesktop && (
+        
         <nav className="navbar">
-          <a className="navbar-item" href="#">Rank Games</a>
-          <a className="navbar-item" href="#">Charts</a>
-          <a className="navbar-item" href="#">Users</a>
-        </nav>
+  <a className="navbar-item" href="#">Rank Games</a>
+  <a style={{ color: '#9A2AE9' }}> space</a>
+  <a className="navbar-item" href="#">Charts</a>
+  <a style={{ color: '#9A2AE9' }}> space</a>
+  <a className="navbar-item" href="#">Users</a>
+</nav>
+
       )}
 
       {isPhone && (
@@ -117,5 +122,4 @@ const App = () => {
     </div>
   );
 }
-
-export default App;
+export default Homepage;
