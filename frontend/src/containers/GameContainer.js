@@ -31,13 +31,13 @@ const GameContainer = () => {
     }
 
     const getGameOne = () => {
-        const newFetch = fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 20000) + "&page_size=40&key=c3777d97bab94b3ebc7217158e98bb37")
+        const newFetch = fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 20000) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
         .then((response) => response.json())
         .then((data) => setGameOne(data.results[randomInt(0, 39)]))
     }
 
     const getGameTwo = () => {
-        const newFetch = fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 20000) + "&page_size=40&key=c3777d97bab94b3ebc7217158e98bb37")
+        const newFetch = fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 20000) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
         .then((response) => response.json())
         .then((data) => setGameTwo(data.results[randomInt(0, 39)]))
     }
