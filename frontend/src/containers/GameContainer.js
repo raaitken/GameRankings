@@ -119,17 +119,9 @@ const GameContainer = () => {
 
     return (
       <div className="container">
-      {isDesktop && (
-        
-        <nav className="navbar">
-  <a className="navbar-item" href="#">Rank Games</a>
-  <a style={{ color: '#9A2AE9' }}> space</a>
-  <a className="navbar-item" href="#">Charts</a>
-  <a style={{ color: '#9A2AE9' }}> space</a>
-  <a className="navbar-item" href="#">Users</a>
-</nav>
 
-      )}
+
+      
 
       {isPhone && (
         <nav className="phone-navbar">
