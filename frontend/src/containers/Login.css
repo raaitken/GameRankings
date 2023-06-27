@@ -1,93 +1,91 @@
+
+
 body {
-  margin: 0;
-  padding: 0;
-}
-
-.App {
-  text-align: center;
-  background-color: #9A2AE9;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px);
-  color: #9A2AE9;
-}
-
-.login-form {
-  background-color: #9A2AE9;
-  border-radius: 5px;
-  max-width: 400px;
-  margin: 0 auto;
-}
-
-/* Rest of your CSS styles */
-
-  
-  .profile-picture {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 0 auto; 
-    margin-bottom: 50px;
-    margin-top: 130px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .forgot-password{
-    margin-bottom: 130px;
-  }
-  
-  .profile-picture img {
+    margin: 0;
+    padding: 0;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: top;
+    background-image: url(http://bit.ly/2gPLxZ4);
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    font-family: Arial, Helvetica;
+    letter-spacing: 0.02em;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
   }
   
-  .user-info {
-    margin-bottom: 10px;
+  .blurred-box {
+    position: relative;
+    width: 250px;
+    height: 350px;
+    top: calc(50% - 175px);
+    left: calc(50% - 125px);
+    background: inherit;
+    border-radius: 2px;
+    overflow: hidden;
   }
   
-  .form-group {
-    margin-bottom: 10px;
+  .blurred-box:after {
+    content: '';
+    width: 300px;
+    height: 300px;
+    background: inherit;
+    position: absolute;
+    left: -25px;
+    right: 0;
+    top: -25px;
+    bottom: 0;
+    box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.05);
+    filter: blur(10px);
   }
   
-  .forgot-password {
+  .user-login-box {
+    position: relative;
+    margin-top: 50px;
     text-align: center;
+    z-index: 1;
   }
   
-  
-  @media (max-width: 576px) {
-    .login-form {
-      width: 100%;
-      
-    }
-    
-    input[type="text"],
-    input[type="password"],
-    Button {
-      width: 100%;
-      margin-bottom: 10px;
-    }
+  .user-login-box > * {
+    display: inline-block;
+    width: 200px;
   }
   
-  
-  @media (min-width: 576px) {
-    .login-form {
-      display: grid;
-      grid-template-rows: auto;
-      gap: 10px;
-    }
-  
-    input[type="text"],
-    input[type="password"],
-    Button {
-      width: 100%;
-    }
+  .user-icon {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    border-radius: 50%;
+    background-size: contain;
+    background-image: url('./images/jb.jpeg');
   }
   
+  .user-name {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    color: white;
+  }
+  
+  input.user-password {
+    width: 120px;
+    height: 18px;
+    opacity: 0.4;
+    border-radius: 2px;
+    padding: 5px 15px;
+    border: 0;
+  }
+  
+  .login-button {
+    margin-top: 15px;
+  }
+  
+
+
+@media (max-width: 768px) {
+    .navbar {
+      display: none;
+    }
+  }
   
