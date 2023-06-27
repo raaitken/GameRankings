@@ -60,4 +60,4 @@ const CreateAccount = ({users, addUser}) => {
     
 }
 
-export default CreateAccount
+export default CreateAccount;
