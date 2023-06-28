@@ -48,8 +48,8 @@ const GameContainer = () => {
     }, [])
 
     const handleClick = (slug) => {
-      let game = findGameBySlug(slug);
-      console.log(game);
+      // let game = findGameBySlug(slug);
+      console.log('Clicked!');
     }
 
     const randomInt = (min, max) => {
