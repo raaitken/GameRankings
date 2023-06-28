@@ -36,16 +36,14 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
       <CreateAccount users={users} addUser={addUser}/>
       :
       <>
-        <div className="profile-picture">
-          <img src={profileImage} alt="Profile" />
-        </div>
+        
         <div className="user-info">
-          <span className="user-name">Name</span>
+         
         </div>
         <div className="form-group">
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Login"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
