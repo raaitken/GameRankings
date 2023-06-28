@@ -47,8 +47,9 @@ const GameContainer = () => {
         // setGamesFunc();
     }, [])
 
-    const handleClick = (event) => {
-      
+    const handleClick = (slug) => {
+      let game = findGameBySlug(slug);
+      console.log(game);
     }
 
     const randomInt = (min, max) => {
@@ -183,7 +184,7 @@ const GameContainer = () => {
 
         <div className={isDesktop ? "col-lg-8" : "col-12"}>
           <div className="row">
-            <Game game={gameOne} />
+            <Game game={gameOne} onClick={handleClick} />
             <Game game={gameTwo} />
           </div>
 
