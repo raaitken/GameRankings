@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 @RestController
 public class UserController {
@@ -36,7 +35,7 @@ public class UserController {
 //    }
 
     @PostMapping(value = "/users")
-    public ResponseEntity<User> postUser(@RequestBody Map<String, Object> payload){+
+    public ResponseEntity<User> postUser(@RequestBody Map<String, Object> payload){
         Object name = payload.get("name");
         Object password = payload.get("password");
         User newUser = new User(name.toString(), password.toString());

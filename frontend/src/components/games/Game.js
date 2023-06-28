@@ -1,24 +1,18 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 
-const Game = ({ game }) => {
+const Game = ({ game, handleClick }) => {
 
     if (!game) {
         return "Loading..."
     }
 
-    const url = "/games/" + game.id;
     return (
         <Fragment>
-            <p>
-                <Link to={url}>
-                    {game.name}
-                </Link>
-            </p>
-            <p>Description: {game.description}</p>
-            <p>Genre: {game.genre}</p>
-            <p>Release Year: {game.yearOfRelease}</p>
-            <p>Platforms: </p>
+            <div className="col-6">
+              <div className="game-item">
+                <img src={game.background_image} alt={game.name} className="game-image" onClick={() => {handleClick(game)}}/>
+              </div>
+            </div>
         </Fragment>
     );
 }
