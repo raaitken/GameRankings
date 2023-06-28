@@ -3,12 +3,6 @@ import { Route, Routes, useParams } from 'react-router-dom';
 import './GameContainer.css';
 import Request from '../helpers/request';
 import GameDetail from '../components/games/GameDetail';
-import HomeImage from '../containers/images/home.png'
-import RankingsImage from '../containers/images/Ranking.png'
-import ChartsImage from '../containers/images/charts.jpeg'
-import UsersImage from '../containers/images/users.png'
-import WiiFit from '../containers/images/Wii_fit.jpeg';
-import Simpsons from '../containers/images/The_Simpsons.jpeg';
 import Game from '../components/games/Game';
 
 
@@ -19,9 +13,21 @@ const GameContainer = () => {
     const [gameTwo, setGameTwo] = useState();
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
+    
+    const [stateGame, setStateGame] = useState({
+      name: "",
+      slug: "",
+      image: "",
+      genre: "",
+      description: "",
+      year: null,
+      platform: null
+    });
+    
+    const request = new Request();
+    const url = "/api/games";
 
     useEffect(() => {
-      const request = new Request();
 
       const gamePromise = request.get('/api/games');
 
@@ -47,9 +53,25 @@ const GameContainer = () => {
         // setGamesFunc();
     }, [])
 
-    const handleClick = (slug) => {
-      // let game = findGameBySlug(slug);
+    const handleClick = (game) => {
+      const newGame = {
+        "name": game.name,
+        "slug": game.slug,
+        "image": game.background_image,
+        "genre": game.genres[0].name
+      }
+
+      addGame(newGame);
+
+      if (!findGameBySlug(game.slug)) {
+        request.post(url, newGame);
+      }
       console.log('Clicked!');
+    }
+
+    const addGame = (newGame) => {
+      const updatedGames = [...games, newGame];
+      setGames(updatedGames);
     }
 
     const randomInt = (min, max) => {
@@ -125,31 +147,6 @@ const GameContainer = () => {
 
     return (
       <div className="container">
-
-
-      
-
-      {/* {isPhone && (
-        <nav className="phone-navbar">
-          <div className="phone-nav-item">
-            <img src={HomeImage} alt="Home" className="nav-icon" />
-            <span>Home</span>
-          </div>
-          <div className="phone-nav-item">
-            <img src={RankingsImage} alt="Your Rankings" className="nav-icon" />
-            <span>Your Rankings</span>
-          </div>
-          <div className="phone-nav-item">
-            <img src={ChartsImage} alt="Charts" className="nav-icon" />
-            <span>Charts</span>
-          </div>
-          <div className="phone-nav-item">
-            <img src={UsersImage} alt="Users" className="nav-icon" />
-            <span>Users</span>
-          </div>
-        </nav>
-      )} */}
-
       <div className="row">
         <div className='gameslist'>
         {isDesktop && (
@@ -184,8 +181,8 @@ const GameContainer = () => {
 
         <div className={isDesktop ? "col-lg-8" : "col-12"}>
           <div className="row">
-            <Game game={gameOne} onClick={handleClick} />
-            <Game game={gameTwo} />
+            <Game game={gameOne} handleClick={handleClick} />
+            <Game game={gameTwo} handleClick={handleClick} />
           </div>
 
           <div className="row">

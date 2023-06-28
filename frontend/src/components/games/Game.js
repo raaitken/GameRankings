@@ -10,7 +10,7 @@ const Game = ({ game, handleClick }) => {
         <Fragment>
             <div className="col-6">
               <div className="game-item">
-                <img src={game.background_image} alt={game.name} className="game-image" onClick={handleClick}/>
+                <img src={game.background_image} alt={game.name} className="game-image" onClick={() => {handleClick(game)}}/>
               </div>
             </div>
         </Fragment>
