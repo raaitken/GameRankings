@@ -9,6 +9,7 @@ import ChartsImage from '../containers/images/charts.jpeg'
 import UsersImage from '../containers/images/users.png'
 import WiiFit from '../containers/images/Wii_fit.jpeg';
 import Simpsons from '../containers/images/The_Simpsons.jpeg';
+import Game from '../components/games/Game';
 
 
 const GameContainer = () => {
@@ -46,20 +47,24 @@ const GameContainer = () => {
         // setGamesFunc();
     }, [])
 
+    const handleClick = (event) => {
+      
+    }
+
     const randomInt = (min, max) => {
       return Math.floor(Math.random() * max) + min;
     }
 
     const getGameOne = () => {
 
-        const newFetch = fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
+        fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
         .then((response) => response.json())
         .then((data) => setGameOne(data.results[randomInt(0, 39)]))
     }
 
     const getGameTwo = () => {
 
-        const newFetch = fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
+        fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
         .then((response) => response.json())
         .then((data) => setGameTwo(data.results[randomInt(0, 39)]))
     }
@@ -178,16 +183,8 @@ const GameContainer = () => {
 
         <div className={isDesktop ? "col-lg-8" : "col-12"}>
           <div className="row">
-            <div className="col-6">
-              <div className="game-item">
-                <img src={WiiFit} alt="Wii Fit" className="game-image" />
-              </div>
-            </div>
-            <div className="col-6">
-              <div className="game-item">
-                <img src={Simpsons} alt="The Simpsons" className="game-image" />
-              </div>
-            </div>
+            <Game game={gameOne} />
+            <Game game={gameTwo} />
           </div>
 
           <div className="row">
