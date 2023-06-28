@@ -264,6 +264,7 @@ const GameContainer = () => {
           
         )}
         </div>
+        <div className='pics'>
 
         <div className={isDesktop ? "col-lg-8" : "col-12"}>
           <div className="row">
@@ -284,6 +285,7 @@ const GameContainer = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
     );
 }
