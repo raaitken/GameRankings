@@ -20,7 +20,7 @@ const App = () => {
 
   const getUsers = () => {
     const request = new Request()
-    request.get("/users")
+    request.get("/api/users")
     .then((data) => {
       setUsers(data)
     })
@@ -42,12 +42,12 @@ const App = () => {
         {!loggedInUser
         ?
         <>
-          <Route path="/" element={<Login setUser={setUser} users={users} addUser={addUser} showCreateAccount={showCreateAccount} setShowCreateAccount={setShowCreateAccount}/>}/>
+          <Route path="/*" element={<Login setUser={setUser} users={users} addUser={addUser} showCreateAccount={showCreateAccount} setShowCreateAccount={setShowCreateAccount}/>}/>
           <Route path="*" element={<ErrorPage/>}/>
         </>
         :
         <>
-          <Route path="/" element={<MainContainer loggedInUser={loggedInUser}/>}/>
+          <Route path="/*" element={<MainContainer loggedInUser={loggedInUser}/>}/>
         </>
         }
       </Routes>
