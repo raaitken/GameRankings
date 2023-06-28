@@ -14,16 +14,6 @@ const GameContainer = () => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     
-    const [stateGame, setStateGame] = useState({
-      name: "",
-      slug: "",
-      image: "",
-      genre: "",
-      description: "",
-      year: null,
-      platform: null
-    });
-    
     const request = new Request();
     const url = "/api/games";
 
@@ -54,18 +44,30 @@ const GameContainer = () => {
     }, [])
 
     const handleClick = (game) => {
-      const newGame = {
-        "name": game.name,
-        "slug": game.slug,
-        "image": game.background_image,
-        "genre": game.genres[0].name
+      const newGameOne = {
+        "id": gameOne.id,
+        "name": gameOne.name,
+        "slug": gameOne.slug,
+        "image": gameOne.background_image,
+        "genre": gameOne.genres[0].name
       }
 
-      addGame(newGame);
-
-      if (!findGameBySlug(game.slug)) {
-        request.post(url, newGame);
+      const newGameTwo = {
+        "id": gameTwo.id,
+        "name": gameTwo.name,
+        "slug": gameTwo.slug,
+        "image": gameTwo.background_image,
+        "genre": gameTwo.genres[0].name
       }
+
+      if (!findGameBySlug(gameOne.slug)) {
+        request.post(url, newGameOne);
+      }
+
+      if(!findGameBySlug(gameTwo.slug)) {
+        request.post(url, newGameTwo);
+      }
+      console.log(gameOne.id);
       getGameOne();
       getGameTwo();
     }

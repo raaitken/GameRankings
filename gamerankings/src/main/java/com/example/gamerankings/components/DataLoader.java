@@ -1,7 +1,5 @@
 package com.example.gamerankings.components;
 
-import com.example.gamerankings.models.Game;
-import com.example.gamerankings.models.GameUser;
 import com.example.gamerankings.models.Platform;
 import com.example.gamerankings.models.User;
 import com.example.gamerankings.repositories.GameRepository;
@@ -34,19 +32,19 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        platforms.add(Platform.PS5);
-        Game ff16 = new Game("Final Fantasy XVI", "final-fantasy-xvi", "imgsrc", "RPG", "Description", 2023, platforms);
-        gameRepository.save(ff16);
-
-        platforms.add(Platform.XboxSeries);
-        platforms.add(Platform.PC);
-        Game diablo4 = new Game("Diablo 4", "diablo-4", "imgsrc", "ARPG", "Description", 2023, platforms);
-        gameRepository.save(diablo4);
-
-        platforms.clear();
-        platforms.add(Platform.NintendoWii);
-        Game game1 = new Game("Wii Sports", "wii-sports", "imgsrc", "Sports", "Game about sports on the Wii", 2006, platforms);
-        gameRepository.save(game1);
+//        platforms.add(Platform.PS5);
+//        Game ff16 = new Game("Final Fantasy XVI", "final-fantasy-xvi", "imgsrc", "RPG", "Description", 2023, platforms);
+//        gameRepository.save(ff16);
+//
+//        platforms.add(Platform.XboxSeries);
+//        platforms.add(Platform.PC);
+//        Game diablo4 = new Game("Diablo 4", "diablo-4", "imgsrc", "ARPG", "Description", 2023, platforms);
+//        gameRepository.save(diablo4);
+//
+//        platforms.clear();
+//        platforms.add(Platform.NintendoWii);
+//        Game game1 = new Game("Wii Sports", "wii-sports", "imgsrc", "Sports", "Game about sports on the Wii", 2006, platforms);
+//        gameRepository.save(game1);
 
         User ross = new User("rossaitken", "password");
         userRepository.save(ross);
@@ -54,9 +52,9 @@ public class DataLoader implements ApplicationRunner {
         User sam = new User("samhouston", "password");
         userRepository.save(sam);
 
-        GameUser gameUser = new GameUser(ff16, ross);
-        GameUser gu1 = new GameUser(diablo4, sam);
-        gameUserRepository.save(gameUser);
-        gameUserRepository.save(gu1);
+//        GameUser gameUser = new GameUser(ff16, ross);
+//        GameUser gu1 = new GameUser(diablo4, sam);
+//        gameUserRepository.save(gameUser);
+//        gameUserRepository.save(gu1);
     }
 }
