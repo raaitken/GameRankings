@@ -150,26 +150,26 @@ const GameContainer = () => {
           <div className="phonegame">
             <h2>Your All Time Top 20 Games</h2>
             <ol>
-              <li>Game 1</li>
-              <li>Game 2</li>
-              <li>Game 3</li>
-              <li>Game 4</li>
-              <li>Game 5</li>
-              <li>Game 6</li>
-              <li>Game 7</li>
-              <li>Game 8</li>
-              <li>Game 9</li>
-              <li>Game 10</li>
-              <li>Game 11</li>
-              <li>Game 12</li>
-              <li>Game 13</li>
-              <li>Game 14</li>
-              <li>Game 15</li>
-              <li>Game 16</li>
-              <li>Game 17</li>
-              <li>Game 18</li>
-              <li>Game 19</li>
-              <li>Game 20</li>
+              <li>Wii Sports</li>
+              <li>Wii Sports Resort</li>
+              <li>Wii Sports Legacy</li>
+              <li>Wii Sports Club</li>
+              <li>Wii Fit</li>
+              <li>Wii Party</li>
+              <li>Wii Play</li>
+              <li>Wii Fit Plus</li>
+              <li>RockBand</li>
+              <li>Mario and Sonic Olympics</li>
+              <li> Just Dance 4</li>
+              <li>Big Brain Academy</li>
+              <li>Disney’s Extreme Skate Adventure</li>
+              <li>Simpsons Hit & Run</li>
+              <li>The Simpsons Wrestling</li>
+              <li>The Simpsons Game</li>
+              <li>Fifa Street 2</li>
+              <li>Wii Sports 2</li>
+              <li>WWE2K17</li>
+              <li>Mincecraft</li>
             </ol>
           </div>
           
