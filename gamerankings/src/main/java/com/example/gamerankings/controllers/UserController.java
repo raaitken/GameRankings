@@ -8,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class UserController {
@@ -26,10 +28,20 @@ public class UserController {
         return new ResponseEntity<>(userRepository.findById(id), HttpStatus.OK);
     }
 
+//    @PostMapping(value = "/users")
+//    public ResponseEntity<User> postUser(@RequestBody User user){
+//        System.out.println(user);
+//        userRepository.save(user);
+//        return new ResponseEntity<>(user, HttpStatus.CREATED);
+//    }
+
     @PostMapping(value = "/users")
-    public ResponseEntity<User> postUser(@RequestBody User user){
-        userRepository.save(user);
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+    public ResponseEntity<User> postUser(@RequestBody Map<String, Object> payload){+
+        Object name = payload.get("name");
+        Object password = payload.get("password");
+        User newUser = new User(name.toString(), password.toString());
+        userRepository.save(newUser);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
     @DeleteMapping(value = "/users/{id}")

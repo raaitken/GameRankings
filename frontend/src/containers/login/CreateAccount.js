@@ -24,10 +24,12 @@ const CreateAccount = ({users, addUser}) => {
             alert('Account created successfully!');
             // setCreated(true);
             const newUser = {
-                name: userName,
-                password: password
+                "name": userName,
+                "password": password
             }
             addUser(newUser)
+            console.log("newUser", newUser);
+
             const request = new Request();
             request.post('/users', newUser).then(() => {
                 window.location = '/';

@@ -20,7 +20,7 @@ const App = () => {
 
   const getUsers = () => {
     const request = new Request()
-    request.get("/api/users")
+    request.get("/users")
     .then((data) => {
       setUsers(data)
     })
