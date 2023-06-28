@@ -66,7 +66,8 @@ const GameContainer = () => {
       if (!findGameBySlug(game.slug)) {
         request.post(url, newGame);
       }
-      console.log('Clicked!');
+      getGameOne();
+      getGameTwo();
     }
 
     const addGame = (newGame) => {
@@ -90,6 +91,11 @@ const GameContainer = () => {
         fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
         .then((response) => response.json())
         .then((data) => setGameTwo(data.results[randomInt(0, 39)]))
+    }
+
+    const getBothGames = () => {
+      getGameOne();
+      getGameTwo();
     }
 
     const findGameBySlug = (slug) => {
@@ -187,13 +193,13 @@ const GameContainer = () => {
 
           <div className="row">
             <div className="col-4">
-              <button className="btn btn-primary">Haven't played</button>
+              <button className="btn btn-primary" onClick={getGameOne}>Haven't played</button>
             </div>
             <div className="col-4">
-              <button className="btn btn-primary">Haven't played either</button>
+              <button className="btn btn-primary" onClick={getBothGames}>Haven't played either</button>
             </div>
             <div className="col-4">
-              <button className="btn btn-primary">Haven't played</button>
+              <button className="btn btn-primary" onClick={getGameTwo}>Haven't played</button>
             </div>
           </div>
         </div>
