@@ -7,8 +7,6 @@ import ChartsImage from '../containers/images/charts.jpeg'
 import UsersImage from '../containers/images/users.png'
 
 
-
-
 const NavBar = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';

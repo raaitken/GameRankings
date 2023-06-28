@@ -124,8 +124,8 @@ const GameContainer = () => {
       
 
       {/* {isPhone && (
-        <nav className="phone-navbar">
-          <div className="phone-nav-item">
+        <nav className="phone-navbar"> */}
+          {/* <div className="phone-nav-item">
             <img src={HomeImage} alt="Home" className="nav-icon" />
             <span>Home</span>
           </div>
@@ -141,8 +141,8 @@ const GameContainer = () => {
             <img src={UsersImage} alt="Users" className="nav-icon" />
             <span>Users</span>
           </div>
-        </nav>
-      )} */}
+        </nav> */}
+      {/* )} */}
 
       <div className="row">
         <div className='gameslist'>
