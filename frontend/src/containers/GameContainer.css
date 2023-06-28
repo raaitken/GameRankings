@@ -102,6 +102,15 @@ background: linear-gradient(0deg, rgba(48,25,48,1) 22%, rgba(8,21,38,1) 49%, rgb
     object-fit: cover;
     margin: 20px;
   }
+
+  .custom-button {
+    background-color: rgb(80, 98, 122) !important;
+    outline: white !important;
+    border: white !important;
+    padding: 10px 20px !important;
+    margin-right: 10px !important;
+  }
+  
   
   .row {
     display: flex;
