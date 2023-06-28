@@ -59,9 +59,7 @@ const NavBar = () => {
           <li className="navbar-item">
             <Link to="/games">Home</Link>
           </li>
-          <li className="navbar-item">
-            <Link to="/rankings">Your Rankings</Link>
-          </li>
+         
           <li className="navbar-item">
             <Link to="/charts">Charts</Link>
           </li>
