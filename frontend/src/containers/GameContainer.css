@@ -93,30 +93,36 @@ background: linear-gradient(0deg, rgba(48,25,48,1) 22%, rgba(8,21,38,1) 49%, rgb
  
     @media (min-width: 768px) {
     .game-item {
-      margin: 70px;
+      margin: 90px;
     }}
   
-  .game-item {
-    width: 200px;
-    height: 100%;
-    border: 1px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    .game-item {
+      width: 200px;
+      height: 100%;
+      border: 1px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
     
-    flex-direction: column;
-  
-    text-align: center;
-  }
+    .game-name {
+      margin-top: 10px;
+      color: white;
+      
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 15px;
+    }
+    
+    .game-info {
+      max-width: 380px;
+    }
+    
 
-  .game-name {
-    margin-top: 10px;
-    color: white;
-    font-size: 15px;
-    
-    
-  }
+
 
   @media (min-width: 768px) {
     .game-name{
