@@ -14,7 +14,7 @@ import java.util.Set;
 public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column
@@ -59,7 +59,8 @@ public class Game {
     )
     private List<User> users;
 
-    public Game(String name, String slug, String image, String genre, String description, int yearOfRelease, ArrayList<Platform> platforms) {
+    public Game(Long id, String name, String slug, String image, String genre, String description, int yearOfRelease, ArrayList<Platform> platforms) {
+        this.id = id;
         this.name = name;
         this.slug = slug;
         this.image = image;

@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import static java.lang.Integer.parseInt;
+
 @RestController
 public class GameController {
 
@@ -38,6 +40,7 @@ public class GameController {
 
     @PostMapping(value = "/games")
     public ResponseEntity<Game> postGame(@RequestBody Map<String, Object> payload){
+        Object id = payload.get("id");
         Object name = payload.get("name");
         Object slug = payload.get("slug");
         Object image = payload.get("image");
@@ -46,7 +49,7 @@ public class GameController {
         Object yearOfRelease = payload.get("year");
         Object platform = payload.get("platform");
         ArrayList<Platform> platforms = new ArrayList<Platform>();
-        Game newGame = new Game(name.toString(), slug.toString(), image.toString(), genre.toString(), "description", 1900, platforms);
+        Game newGame = new Game((long) parseInt(id.toString()), name.toString(), slug.toString(), image.toString(), "", "description", 1900, platforms);
         gameRepository.save(newGame);
         return new ResponseEntity<>(newGame, HttpStatus.CREATED);
     }

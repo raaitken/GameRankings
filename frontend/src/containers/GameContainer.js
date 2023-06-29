@@ -6,29 +6,22 @@ import GameDetail from '../components/games/GameDetail';
 import Game from '../components/games/Game';
 
 
-const GameContainer = () => {
+const GameContainer = ({loggedInUser}) => {
 
     const [games, setGames] = useState([]);
     const [gameOne, setGameOne] = useState();
     const [gameTwo, setGameTwo] = useState();
+    const [gameRatingOne, setGameRatingOne] = useState();
+    const [gameRatingTwo, setGameRatingTwo] = useState();
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     const [giantBombGameOne, setGiantBombGameOne] = useState();
     const [giantBombGameTwo, setGiantBombGameTwo] = useState();
 
     
-    const [stateGame, setStateGame] = useState({
-      name: "",
-      slug: "",
-      image: "",
-      genre: "",
-      description: "",
-      year: null,
-      platform: null
-    });
-    
     const request = new Request();
-    const url = "/api/games";
+    const urlGame = "/api/games";
+    const urlRating = "/api/gameratings";
 
     useEffect(() => {
 
@@ -58,25 +51,50 @@ const GameContainer = () => {
         // setGamesFunc();
     }, [])
 
-    const handleClick = (game) => {
-      const newGame = {
-        "name": game.name,
-        "slug": game.slug,
-        "image": game.image.icon_url,
+
+    const handleClick = () => {
+      const newGameOne = {
+        "id": gameOne.id,
+        "name": gameOne.name,
+        "slug": gameOne.slug,
+        "image": gameOne.icon_url
+        // "genre": gameOne.genres[0].name
       }
 
-      addGame(newGame);
+      const newGameTwo = {
+        "id": gameTwo.id,
+        "name": gameTwo.name,
+        "slug": gameTwo.slug,
+        "image": gameTwo.icon_url
+        // "genre": gameTwo.genres[0].name
+      }
 
-      if (!findGameBySlug(game.slug)) {
-        request.post(url, newGame);
+      const gameRatingOne = {
+        "game_id": gameOne.id,
+        "user_id": loggedInUser.id,
+        "rating": 1200
+      }
+
+      const gameRatingTwo = {
+        "game_id": gameTwo.id,
+        "user_id": loggedInUser.id,
+        "rating": 1200
+      }
+
+      console.log(gameRatingOne);
+      console.log(gameRatingTwo);
+
+      if (!findGameBySlug(gameOne.slug)) {
+        request.post(urlGame, newGameOne);
+        request.post(urlRating, gameRatingOne);
+      }
+
+      if(!findGameBySlug(gameTwo.slug)) {
+        request.post(urlGame, newGameTwo);
+        request.post(urlRating, gameRatingTwo);
       }
       // getGameOne();
       // getGameTwo();
-    }
-
-    const addGame = (newGame) => {
-      const updatedGames = [...games, newGame];
-      setGames(updatedGames);
     }
 
     const randomInt = (min, max) => {
@@ -309,6 +327,7 @@ const GameContainer = () => {
   </button>
 </div>
           </div>
+
         </div>
       </div>
     </div>

@@ -9,6 +9,11 @@
     align-items: center;
     height: auto;
   }
+
+  .row > div {
+    margin-bottom: 10px;
+  }
+  
   
   .gameslist {
     position: fixed;
@@ -24,6 +29,56 @@
     background: rgb(48,25,48);
 background: linear-gradient(0deg, rgba(48,25,48,1) 22%, rgba(8,21,38,1) 49%, rgba(52,65,91,1) 62%, rgba(34,33,56,1) 75%, rgba(87,100,126,1) 81%, rgba(101,113,138,1) 86%, rgba(84,95,118,1) 95%);
   }
+ 
+  .leaderboard {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 20px;
+    width: 300px;
+    margin: 0 auto;
+    margin-bottom: 90px;
+  }
+  
+  .leaderboard-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .leaderboard-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    counter-reset: item;
+  }
+  
+  .leaderboard-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .leaderboard-list li:last-child {
+    border-bottom: none;
+  }
+  
+  .leaderboard-list li::before {
+    content: counter(item);
+    counter-increment: item;
+    width: 20px;
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+  }
+  
+  .leaderboard-list li span {
+    margin-left: 10px;
+    font-weight: bold;
+  }
+  
+  
   
   
   .leaderboard {
@@ -85,16 +140,44 @@ background: linear-gradient(0deg, rgba(48,25,48,1) 22%, rgba(8,21,38,1) 49%, rgb
     .pics {
       margin-left: 0%;
     }}
+ 
+    @media (min-width: 768px) {
+    .game-item {
+      margin: 90px;
+    }}
   
-  .game-item {
-    width: 200px;
-    height: 200px;
-    border: 1px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
+    .game-item {
+      width: 200px;
+      height: 100%;
+      border: 1px;
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .game-name {
+      margin-top: 10px;
+      color: white;
+      
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 15px;
+    }
+    
+    .game-info {
+      max-width: 380px;
+    }
+    
+
+
+
+  @media (min-width: 768px) {
+    .game-name{
+      white-space: nowrap;
+    }
   }
   
   .game-image {
@@ -118,7 +201,7 @@ background: linear-gradient(0deg, rgba(48,25,48,1) 22%, rgba(8,21,38,1) 49%, rgb
     justify-content: center;
     align-items: center;
     flex-grow: 1;
-    margin-top: 50px;
+    margin-top: 0px;
     color: rgba(249, 249, 0, 0.595);
     font-weight: bold;
   }
@@ -172,6 +255,7 @@ background: linear-gradient(0deg, rgba(48,25,48,1) 22%, rgba(8,21,38,1) 49%, rgb
   
     .row {
       height: auto;
+      margin-bottom: 50px;
     }
   }
   
