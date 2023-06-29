@@ -43,9 +43,9 @@ class GamerankingsApplicationTests {
 		User user1 = new User("samhouston", "password");
 		userRepository.save(user1);
 
-		GameUser gu1 = new GameUser(game1, user1);
+		GameUser gu1 = new GameUser(game1, user1, 1200);
 		gameUserRepository.save(gu1);
-		GameUser gu2 = new GameUser(game2, user1);
+		GameUser gu2 = new GameUser(game2, user1, 1200);
 		gameUserRepository.save(gu2);
 	}
 

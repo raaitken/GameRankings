@@ -21,12 +21,12 @@ public class GameUser {
     @MapsId("user_id")
     private User user;
 
-    private int rating;
+    private double rating;
 
-    public GameUser(Game game, User user) {
+    public GameUser(Game game, User user, double rating) {
         this.game = game;
         this.user = user;
-        this.rating = 1200;
+        this.rating = rating;
     }
 
     public GameUser(){
@@ -57,11 +57,11 @@ public class GameUser {
         this.user = user;
     }
 
-    public int getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 }

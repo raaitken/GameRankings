@@ -6,16 +6,19 @@ import GameDetail from '../components/games/GameDetail';
 import Game from '../components/games/Game';
 
 
-const GameContainer = () => {
+const GameContainer = ({loggedInUser}) => {
 
     const [games, setGames] = useState([]);
     const [gameOne, setGameOne] = useState();
     const [gameTwo, setGameTwo] = useState();
+    const [gameRatingOne, setGameRatingOne] = useState();
+    const [gameRatingTwo, setGameRatingTwo] = useState();
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     
     const request = new Request();
-    const url = "/api/games";
+    const urlGame = "/api/games";
+    const urlRating = "/api/gameratings";
 
     useEffect(() => {
 
@@ -43,38 +46,49 @@ const GameContainer = () => {
         // setGamesFunc();
     }, [])
 
-    const handleClick = (game) => {
+    const handleClick = () => {
       const newGameOne = {
         "id": gameOne.id,
         "name": gameOne.name,
         "slug": gameOne.slug,
-        "image": gameOne.background_image,
-        "genre": gameOne.genres[0].name
+        "image": gameOne.background_image
+        // "genre": gameOne.genres[0].name
       }
 
       const newGameTwo = {
         "id": gameTwo.id,
         "name": gameTwo.name,
         "slug": gameTwo.slug,
-        "image": gameTwo.background_image,
-        "genre": gameTwo.genres[0].name
+        "image": gameTwo.background_image
+        // "genre": gameTwo.genres[0].name
       }
 
+      const gameRatingOne = {
+        "game_id": gameOne.id,
+        "user_id": loggedInUser.id,
+        "rating": 1200
+      }
+
+      const gameRatingTwo = {
+        "game_id": gameTwo.id,
+        "user_id": loggedInUser.id,
+        "rating": 1200
+      }
+
+      console.log(gameRatingOne);
+      console.log(gameRatingTwo);
+
       if (!findGameBySlug(gameOne.slug)) {
-        request.post(url, newGameOne);
+        request.post(urlGame, newGameOne);
+        request.post(urlRating, gameRatingOne);
       }
 
       if(!findGameBySlug(gameTwo.slug)) {
-        request.post(url, newGameTwo);
+        request.post(urlGame, newGameTwo);
+        request.post(urlRating, gameRatingTwo);
       }
-      console.log(gameOne.id);
       getGameOne();
       getGameTwo();
-    }
-
-    const addGame = (newGame) => {
-      const updatedGames = [...games, newGame];
-      setGames(updatedGames);
     }
 
     const randomInt = (min, max) => {

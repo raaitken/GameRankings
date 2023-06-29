@@ -49,7 +49,7 @@ public class GameController {
         Object yearOfRelease = payload.get("year");
         Object platform = payload.get("platform");
         ArrayList<Platform> platforms = new ArrayList<Platform>();
-        Game newGame = new Game((long) parseInt(id.toString()), name.toString(), slug.toString(), image.toString(), genre.toString(), "description", 1900, platforms);
+        Game newGame = new Game((long) parseInt(id.toString()), name.toString(), slug.toString(), image.toString(), "", "description", 1900, platforms);
         gameRepository.save(newGame);
         return new ResponseEntity<>(newGame, HttpStatus.CREATED);
     }
