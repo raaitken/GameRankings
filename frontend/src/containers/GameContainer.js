@@ -280,6 +280,7 @@ const GameContainer = ({loggedInUser}) => {
           
         )}
         </div>
+        <div className='pics'>
 
         <div className={isDesktop ? "col-lg-8" : "col-12"}>
           <div className="row">
@@ -288,18 +289,26 @@ const GameContainer = ({loggedInUser}) => {
           </div>
 
           <div className="row">
-            <div className="col-4">
-              <button className="btn btn-primary" onClick={getGameOne}>Haven't played</button>
-            </div>
-            <div className="col-4">
-              <button className="btn btn-primary" onClick={getBothGames}>Haven't played either</button>
-            </div>
-            <div className="col-4">
-              <button className="btn btn-primary" onClick={getGameTwo}>Haven't played</button>
-            </div>
-          </div>
+  <div className="col-4">
+    <button className="btn btn-primary custom-button" onClick={getGameOne}>
+      Haven't played
+    </button>
+  </div>
+  <div className="col-4">
+    <button className="btn btn-primary custom-button" onClick={getBothGames}>
+      Haven't played either
+    </button>
+  </div>
+  <div className="col-4">
+    <button className="btn btn-primary custom-button" onClick={getGameTwo}>
+      Haven't played
+    </button>
+  </div>
+</div>
+
         </div>
       </div>
+    </div>
     </div>
     );
 }
