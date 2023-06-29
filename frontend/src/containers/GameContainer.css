@@ -25,6 +25,7 @@
 background: linear-gradient(0deg, rgba(48,25,48,1) 22%, rgba(8,21,38,1) 49%, rgba(52,65,91,1) 62%, rgba(34,33,56,1) 75%, rgba(87,100,126,1) 81%, rgba(101,113,138,1) 86%, rgba(84,95,118,1) 95%);
   }
   
+  
   .leaderboard {
     background-color: rgba(255, 255, 255, 0.0); /* Adjust the last value (0.8) to change the transparency */
     border: 1px solid #ddd;
