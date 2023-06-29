@@ -15,6 +15,9 @@ const GameContainer = ({loggedInUser}) => {
     const [gameRatingTwo, setGameRatingTwo] = useState();
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
+    const [giantBombGameOne, setGiantBombGameOne] = useState();
+    const [giantBombGameTwo, setGiantBombGameTwo] = useState();
+
     
     const request = new Request();
     const urlGame = "/api/games";
@@ -29,8 +32,10 @@ const GameContainer = ({loggedInUser}) => {
           setGames(data[0]);
         })
 
-        getGameOne();
-        getGameTwo();
+        // getGameOne();
+        // getGameTwo();
+        getGiantBombGameOne();
+        getGiantBombGameTwo();
 
         const handleResize = () => {
           setIsDesktop(window.innerWidth >= 769);
@@ -46,12 +51,13 @@ const GameContainer = ({loggedInUser}) => {
         // setGamesFunc();
     }, [])
 
+
     const handleClick = () => {
       const newGameOne = {
         "id": gameOne.id,
         "name": gameOne.name,
         "slug": gameOne.slug,
-        "image": gameOne.background_image
+        "image": gameOne.icon_url
         // "genre": gameOne.genres[0].name
       }
 
@@ -59,7 +65,7 @@ const GameContainer = ({loggedInUser}) => {
         "id": gameTwo.id,
         "name": gameTwo.name,
         "slug": gameTwo.slug,
-        "image": gameTwo.background_image
+        "image": gameTwo.icon_url
         // "genre": gameTwo.genres[0].name
       }
 
@@ -87,31 +93,47 @@ const GameContainer = ({loggedInUser}) => {
         request.post(urlGame, newGameTwo);
         request.post(urlRating, gameRatingTwo);
       }
-      getGameOne();
-      getGameTwo();
+      // getGameOne();
+      // getGameTwo();
     }
 
     const randomInt = (min, max) => {
       return Math.floor(Math.random() * max) + min;
     }
 
-    const getGameOne = () => {
-
-        fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
-        .then((response) => response.json())
-        .then((data) => setGameOne(data.results[randomInt(0, 39)]))
+    const random100Int = () => {
+      return (Math.floor(Math.random() * 84)) * 100;
     }
 
-    const getGameTwo = () => {
-
-        fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
-        .then((response) => response.json())
-        .then((data) => setGameTwo(data.results[randomInt(0, 39)]))
+    const getGiantBombGameOne = () => {
+      fetch("https://www.giantbomb.com/api/games/?api_key=99bb77b092abb16f3a3b310a902f39e3c6e8ee2d&format=json&offset=" + random100Int())
+      .then((response) => response.json())
+      .then((data) => setGiantBombGameOne(data.results[randomInt(0, 99)]))
     }
+
+    const getGiantBombGameTwo = () => {
+      fetch("https://www.giantbomb.com/api/games/?api_key=99bb77b092abb16f3a3b310a902f39e3c6e8ee2d&format=json&offset=" + random100Int())
+      .then((response) => response.json())
+      .then((data) => setGiantBombGameTwo(data.results[randomInt(0, 99)]))
+    }
+
+    // const getGameOne = () => {
+
+    //     fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
+    //     .then((response) => response.json())
+    //     .then((data) => setGameOne(data.results[randomInt(0, 39)]))
+    // }
+
+    // const getGameTwo = () => {
+
+    //     fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
+    //     .then((response) => response.json())
+    //     .then((data) => setGameTwo(data.results[randomInt(0, 39)]))
+    // }
 
     const getBothGames = () => {
-      getGameOne();
-      getGameTwo();
+      getGiantBombGameOne();
+      getGiantBombGameTwo();
     }
 
     const findGameBySlug = (slug) => {
@@ -284,27 +306,27 @@ const GameContainer = ({loggedInUser}) => {
 
         <div className={isDesktop ? "col-lg-8" : "col-12"}>
           <div className="row">
-            <Game game={gameOne} handleClick={handleClick} />
-            <Game game={gameTwo} handleClick={handleClick} />
+            <Game game={giantBombGameOne} handleClick={handleClick} />
+            <Game game={giantBombGameTwo} handleClick={handleClick} />
           </div>
 
           <div className="row">
-  <div className="col-4">
-    <button className="btn btn-primary custom-button" onClick={getGameOne}>
-      Haven't played
-    </button>
-  </div>
-  <div className="col-4">
-    <button className="btn btn-primary custom-button" onClick={getBothGames}>
-      Haven't played either
-    </button>
-  </div>
-  <div className="col-4">
-    <button className="btn btn-primary custom-button" onClick={getGameTwo}>
-      Haven't played
-    </button>
-  </div>
+          <div className="col-4">
+  <button className="btn btn-primary custom-button" onClick={getGiantBombGameOne}>
+    Haven't played
+  </button>
 </div>
+<div className="col-4">
+  <button className="btn btn-primary custom-button" onClick={getBothGames}>
+    Haven't played either
+  </button>
+</div>
+<div className="col-4">
+  <button className="btn btn-primary custom-button" onClick={getGiantBombGameTwo}>
+    Haven't played
+  </button>
+</div>
+          </div>
 
         </div>
       </div>

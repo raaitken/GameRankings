@@ -4,7 +4,7 @@ const Game = ({ game, handleClick }) => {
   if (!game) {
     return "Loading..."
   }
-
+  
   return (
     <Fragment>
     <div className="col-6">
