@@ -12,12 +12,12 @@ public class GameUser {
     private GameUserId id = new GameUserId();
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "game-user")
     @MapsId("game_id")
     private Game game;
 
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value = "user-game")
     @MapsId("user_id")
     private User user;
 

@@ -12,15 +12,19 @@ const GameContainer = ({loggedInUser}) => {
     const [gameUsers, setGameUsers] = useState([]);
     const [gameOne, setGameOne] = useState();
     const [gameTwo, setGameTwo] = useState();
-    const [gameRatingOne, setGameRatingOne] = useState();
+    const [gameRating, setGameRating] = useState({
+      "game": null,
+      "user": null,
+      "rating": 0
+    });
     const [gameRatingTwo, setGameRatingTwo] = useState();
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
 
-    
+    const ratingsUrl = '/api/gameratings';
+    const request = new Request();
 
     useEffect(() => {
-      const request = new Request();
 
       const gamePromise = request.get('/api/games');
 
@@ -60,40 +64,42 @@ const GameContainer = ({loggedInUser}) => {
       }
 
       const gameRatingOne = {
-        "game_id": gameOne,
-        "user_id": loggedInUser,
+        "game": gameOne,
+        "user": loggedInUser,
         "rating": 1200
       }
 
       const gameRatingTwo = {
-        "game_id": gameTwo,
-        "user_id": loggedInUser,
+        "game": gameTwo,
+        "user": loggedInUser,
         "rating": 1200
       }
 
+      handleRatingsPost(gameOne);
+      handleRatingsPost(gameTwo);
+      
       getBothGames();
+    }
+
+    const handleRatingsPost = (game) => {
+      if (!findGameById(game.id)) {
+        setGameRating({
+          "game": game,
+          "user": loggedInUser,
+          "rating": 1200
+        })
+        request.post(ratingsUrl, gameRating);
+      }
     }
 
     const GetRandomIndex = () => {
       return Math.floor(Math.random() * games.length);
     }
 
-    const getGameUsers = () => {
-      const request = new Request()
-      request.get("/api/gameratings")
-      .then((data) => {
-        setGameUsers(data)
-      })
-    }
-
-    if (!gameUsers) {
-      return "Loading....."
-    }
-
     const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[0].rating - gameA.gameUsers[0].rating);
 
     const gameRatingsNodes = gameRatings.map((gameRating, index) => {
-      return <li>{gameRating.name}</li>
+      return <li key={index}>{gameRating.name}</li>
     })
 
     const getGameOne = () => {
@@ -109,18 +115,18 @@ const GameContainer = ({loggedInUser}) => {
       getGameTwo();
     }
 
-    const findGameBySlug = (slug) => {
-      return games.find((game) => {
-        return game.slug === slug;
+    const findGameById = (id) => {
+      return loggedInUser.games.find((game) => {
+        return game.id === id;
       })
     };
 
-    const GameDetailWrapper = () => {
-      const { slug } = useParams();
-      let foundGame = findGameBySlug(slug);
+    // const GameDetailWrapper = () => {
+    //   const { slug } = useParams();
+    //   let foundGame = findGameBySlug(slug);
 
-      return <GameDetail game={foundGame} />;
-    }
+    //   return <GameDetail game={foundGame} />;
+    // }
 
     function Probability(rating1, rating2) {
       return (

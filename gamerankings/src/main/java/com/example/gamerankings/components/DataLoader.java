@@ -51,6 +51,14 @@ public class DataLoader implements ApplicationRunner {
         Game simpsonsWrestling = new Game("Simpsons Wrestling", "simpsons-wrestling", "https://gamefaqs.gamespot.com/a/box/0/6/8/10068_front.jpg", "Sports", "description", 2001);
         gameRepository.save(simpsonsWrestling);
 
+        Game sf6 = new Game("Street Fighter 6", "street-fighter-6", "https://gamefaqs.gamespot.com/a/box/1/9/0/940190_front.jpg", "Fighting", "description", 2023);
+        gameRepository.save(sf6);
+
+        Game theSims4 = new Game("The Sims 4", "the-sims-4", "https://gamefaqs.gamespot.com/a/box/7/8/3/279783_front.jpg", "Simulation", "description", 2014);
+        gameRepository.save(theSims4);
+
+        Game shibuyaScramble = new Game("428 - Shibuya Scramble", "428-shibuya-scramble", "https://gamefaqs.gamespot.com/a/box/7/2/4/667724_front.jpg", "Visual Novel", "description", 2008);
+        gameRepository.save(shibuyaScramble);
 
         User ross = new User("rossaitken", "password");
         userRepository.save(ross);

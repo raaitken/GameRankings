@@ -7,8 +7,7 @@ import com.example.gamerankings.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,13 +27,24 @@ public class GameUserController {
     }
 
 //    @PostMapping(value = "/gameratings")
-//    public ResponseEntity<GameUser> postRating(@RequestBody Map<String, Object> payload) throws InterruptedException {
-//        Object game = payload.get("game_id");
-//        Object user = payload.get("user_id");
+//    public ResponseEntity<GameUser> postGameUser(@RequestBody Map<String, Object> payload){
+//        Object game = payload.get("game");
+//        Object user = payload.get("user");
 //        Object rating = payload.get("rating");
-//
-//        GameUser newRating = new GameUser(game, user, parseDouble(rating.toString()));
-//        gameUserRepository.save(newRating);
-//        return new ResponseEntity<>(newRating, HttpStatus.CREATED);
+//        GameUser newGameUser = new GameUser((Game) game, (User) user, parseDouble(rating.toString()));
+//        gameUserRepository.save(newGameUser);
+//        return new ResponseEntity<>(newGameUser, HttpStatus.CREATED);
 //    }
+
+    @PostMapping(value = "/gameratings")
+    public ResponseEntity<GameUser> postGameUser(@RequestBody GameUser gameUser){
+        gameUserRepository.save(gameUser);
+        return new ResponseEntity<>(gameUser, HttpStatus.CREATED);
+    }
+
+    @PatchMapping(value = "/gameratings/{id}")
+    public ResponseEntity<GameUser> updateGameUser(@RequestBody GameUser gameUser) {
+        gameUserRepository.save(gameUser);
+        return new ResponseEntity<>(gameUser, HttpStatus.OK);
+    }
 }
