@@ -9,6 +9,7 @@ import Game from '../components/games/Game';
 const GameContainer = ({loggedInUser}) => {
 
     const [games, setGames] = useState([]);
+    const [gameUsers, setGameUsers] = useState([]);
     const [gameOne, setGameOne] = useState();
     const [gameTwo, setGameTwo] = useState();
     const [gameRatingOne, setGameRatingOne] = useState();
@@ -77,6 +78,24 @@ const GameContainer = ({loggedInUser}) => {
       return Math.floor(Math.random() * games.length);
     }
 
+    const getGameUsers = () => {
+      const request = new Request()
+      request.get("/api/gameratings")
+      .then((data) => {
+        setGameUsers(data)
+      })
+    }
+
+    if (!gameUsers) {
+      return "Loading....."
+    }
+
+    const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[0].rating - gameA.gameUsers[0].rating);
+
+    const gameRatingsNodes = gameRatings.map((gameRating, index) => {
+      return <li>{gameRating.name}</li>
+    })
+
     const getGameOne = () => {
       setGameOne(games[GetRandomIndex()]);
     }
@@ -89,8 +108,6 @@ const GameContainer = ({loggedInUser}) => {
       getGameOne();
       getGameTwo();
     }
-
-
 
     const findGameBySlug = (slug) => {
       return games.find((game) => {
@@ -143,106 +160,7 @@ const GameContainer = ({loggedInUser}) => {
           <div className="phonegame">
             <h2>Your Top 100</h2>
             <ol>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
+              {gameRatingsNodes}
             </ol>
           </div>
           
@@ -258,6 +176,7 @@ const GameContainer = ({loggedInUser}) => {
 
           <div className="row">
           <div className="col-4">
+
   <button className="btn btn-primary custom-button" onClick={getGameOne}>
     Haven't played
   </button>
@@ -273,7 +192,6 @@ const GameContainer = ({loggedInUser}) => {
   </button>
 </div>
           </div>
-
         </div>
       </div>
     </div>
