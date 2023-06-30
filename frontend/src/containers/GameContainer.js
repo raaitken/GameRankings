@@ -78,14 +78,6 @@ const GameContainer = ({loggedInUser}) => {
       return Math.floor(Math.random() * games.length);
     }
 
-    const getGameUsers = () => {
-      const request = new Request()
-      request.get("/api/gameratings")
-      .then((data) => {
-        setGameUsers(data)
-      })
-    }
-
     if (!gameUsers) {
       return "Loading....."
     }
@@ -96,17 +88,28 @@ const GameContainer = ({loggedInUser}) => {
       return <li>{gameRating.name}</li>
     })
 
-    const getGameOne = () => {
-      setGameOne(games[GetRandomIndex()]);
-    }
+    // const getGameOne = () => {
+    //   setGameOne(games[GetRandomIndex()]);
+    // }
 
-    const getGameTwo = () => {
-      setGameTwo(games[GetRandomIndex()]);
-    }
-
+    
     const getBothGames = () => {
-      getGameOne();
-      getGameTwo();
+      
+      
+      while (true) {
+        const newGameOne = games[GetRandomIndex()];
+        const newGameTwo = games[GetRandomIndex()];
+        console.log("Game 1: ", newGameOne);
+        console.log("Game 2: ", newGameTwo);
+        if (!newGameOne && !newGameTwo) {
+          return "Loading....."
+        }
+        if (newGameOne.id !== newGameTwo.id) {
+          setGameOne(newGameOne);
+          setGameTwo(newGameTwo);
+          break
+        }
+      }
     }
 
     const findGameBySlug = (slug) => {
@@ -177,7 +180,7 @@ const GameContainer = ({loggedInUser}) => {
           <div className="row">
           <div className="col-4">
 
-  <button className="btn btn-primary custom-button" onClick={getGameOne}>
+  <button className="btn btn-primary custom-button">
     Haven't played
   </button>
 </div>
@@ -187,7 +190,7 @@ const GameContainer = ({loggedInUser}) => {
   </button>
 </div>
 <div className="col-4">
-  <button className="btn btn-primary custom-button" onClick={getGameTwo}>
+  <button className="btn btn-primary custom-button">
     Haven't played
   </button>
 </div>
