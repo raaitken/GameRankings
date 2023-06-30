@@ -35,20 +35,20 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
         platforms.add(Platform.PS5);
-        Game ff16 = new Game("Final Fantasy XVI", "final-fantasy-xvi", "imgsrc", "RPG", "Description", 2023);
+        Game ff16 = new Game("Final Fantasy XVI", "final-fantasy-xvi", "https://gamefaqs.gamespot.com/a/box/1/9/4/769194_front.jpg", "RPG", "Description", 2023);
         gameRepository.save(ff16);
 
         platforms.add(Platform.XboxSeries);
         platforms.add(Platform.PC);
-        Game diablo4 = new Game("Diablo 4", "diablo-4", "imgsrc", "ARPG", "Description", 2023);
+        Game diablo4 = new Game("Diablo 4", "diablo-4", "https://gamefaqs.gamespot.com/a/box/1/2/3/909123_front.jpg", "ARPG", "Description", 2023);
         gameRepository.save(diablo4);
 
         platforms.clear();
         platforms.add(Platform.NintendoWii);
-        Game wiiSports = new Game("Wii Sports", "wii-sports", "imgsrc", "Sports", "Game about sports on the Wii", 2006);
+        Game wiiSports = new Game("Wii Sports", "wii-sports", "https://gamefaqs.gamespot.com/a/box/1/2/0/76120_front.jpg", "Sports", "Game about sports on the Wii", 2006);
         gameRepository.save(wiiSports);
 
-        Game simpsonsWrestling = new Game("Simpsons Wrestling", "simpsons-wrestling", "imgsrc", "Sports", "description", 2001);
+        Game simpsonsWrestling = new Game("Simpsons Wrestling", "simpsons-wrestling", "https://gamefaqs.gamespot.com/a/box/0/6/8/10068_front.jpg", "Sports", "description", 2001);
         gameRepository.save(simpsonsWrestling);
 
 
