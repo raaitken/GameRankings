@@ -90,7 +90,7 @@ const GameContainer = ({loggedInUser}) => {
     const handleRatingsPost = (game) => {
       if (!findGameById(game.id)) {
         setGameRating({
-          "game": game,
+          "game": game.slug,
           "user": loggedInUser,
           "rating": 1200
         })
