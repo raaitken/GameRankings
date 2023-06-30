@@ -78,6 +78,24 @@ const GameContainer = ({loggedInUser}) => {
       return Math.floor(Math.random() * games.length);
     }
 
+    const getGameUsers = () => {
+      const request = new Request()
+      request.get("/api/gameratings")
+      .then((data) => {
+        setGameUsers(data)
+      })
+    }
+
+    if (!gameUsers) {
+      return "Loading....."
+    }
+
+    const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[0].rating - gameA.gameUsers[0].rating);
+
+    const gameRatingsNodes = gameRatings.map((gameRating, index) => {
+      return <li>{gameRating.name}</li>
+    })
+
     const getGameOne = () => {
       setGameOne(games[GetRandomIndex()]);
     }
@@ -164,7 +182,7 @@ const GameContainer = ({loggedInUser}) => {
   </button>
 </div>
 <div className="col-4">
-  <button className="btn btn-primary custom-button">
+  <button className="btn btn-primary custom-button" onClick={getBothGames}>
     Haven't played either
   </button>
 </div>
