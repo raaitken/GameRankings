@@ -54,30 +54,30 @@ const GameContainer = ({loggedInUser}) => {
 
     const handleClick = () => {
       const newGameOne = {
-        "id": gameOne.id,
-        "name": gameOne.name,
-        "slug": gameOne.slug,
-        "image": gameOne.icon_url
+        "id": giantBombGameOne.id,
+        "name": giantBombGameOne.name,
+        // "slug": giantBombGameOne.slug,
+        "image": giantBombGameOne.icon_url
         // "genre": gameOne.genres[0].name
       }
 
       const newGameTwo = {
-        "id": gameTwo.id,
-        "name": gameTwo.name,
-        "slug": gameTwo.slug,
-        "image": gameTwo.icon_url
+        "id": giantBombGameTwo.id,
+        "name": giantBombGameTwo.name,
+        // "slug": giantBombGameTwo.slug,
+        "image": giantBombGameTwo.icon_url
         // "genre": gameTwo.genres[0].name
       }
 
       const gameRatingOne = {
-        "game_id": gameOne.id,
+        "game_id": giantBombGameOne.id,
         "user_id": loggedInUser.id,
         "rating": 1200
       }
 
       const gameRatingTwo = {
-        "game_id": gameTwo.id,
-        "user_id": loggedInUser.id,
+        "game_id": giantBombGameTwo,
+        "user_id": loggedInUser,
         "rating": 1200
       }
 
