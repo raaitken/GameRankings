@@ -9,6 +9,7 @@ import Game from '../components/games/Game';
 const GameContainer = ({loggedInUser}) => {
 
     const [games, setGames] = useState([]);
+    const [gameUsers, setGameUsers] = useState([]);
     const [gameOne, setGameOne] = useState();
     const [gameTwo, setGameTwo] = useState();
     const [gameRatingOne, setGameRatingOne] = useState();
@@ -28,14 +29,22 @@ const GameContainer = ({loggedInUser}) => {
       const gamePromise = request.get('/api/games');
 
       Promise.all([gamePromise])
-        .then((data) => {
-          setGames(data[0]);
-        })
+      .then((data) => {
+        setGames(data[0]);
+      })
+
+      const gameUserPromise = request.get('/api/gameratings');
+
+      Promise.all([gameUserPromise])
+      .then((data) => {
+        setGameUsers();
+      })
 
         // getGameOne();
         // getGameTwo();
-        getGiantBombGameOne();
-        getGiantBombGameTwo();
+        // getGiantBombGameOne();
+        // getGiantBombGameTwo();
+        getGameUsers();
 
         const handleResize = () => {
           setIsDesktop(window.innerWidth >= 769);
@@ -105,17 +114,35 @@ const GameContainer = ({loggedInUser}) => {
       return (Math.floor(Math.random() * 84)) * 100;
     }
 
-    const getGiantBombGameOne = () => {
-      fetch("https://www.giantbomb.com/api/games/?api_key=99bb77b092abb16f3a3b310a902f39e3c6e8ee2d&format=json&offset=" + random100Int())
-      .then((response) => response.json())
-      .then((data) => setGiantBombGameOne(data.results[randomInt(0, 99)]))
+    // const getGiantBombGameOne = () => {
+    //   fetch("https://www.giantbomb.com/api/games/?api_key=99bb77b092abb16f3a3b310a902f39e3c6e8ee2d&format=json&offset=" + random100Int())
+    //   .then((response) => response.json())
+    //   .then((data) => setGiantBombGameOne(data.results[randomInt(0, 99)]))
+    // }
+
+    // const getGiantBombGameTwo = () => {
+    //   fetch("https://www.giantbomb.com/api/games/?api_key=99bb77b092abb16f3a3b310a902f39e3c6e8ee2d&format=json&offset=" + random100Int())
+    //   .then((response) => response.json())
+    //   .then((data) => setGiantBombGameTwo(data.results[randomInt(0, 99)]))
+    // }
+
+    const getGameUsers = () => {
+      const request = new Request()
+      request.get("/api/gameratings")
+      .then((data) => {
+        setGameUsers(data)
+      })
     }
 
-    const getGiantBombGameTwo = () => {
-      fetch("https://www.giantbomb.com/api/games/?api_key=99bb77b092abb16f3a3b310a902f39e3c6e8ee2d&format=json&offset=" + random100Int())
-      .then((response) => response.json())
-      .then((data) => setGiantBombGameTwo(data.results[randomInt(0, 99)]))
+    if (!gameUsers) {
+      return "Loading....."
     }
+
+    const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[0].rating - gameA.gameUsers[0].rating);
+
+    const gameRatingsNodes = gameRatings.map((gameRating, index) => {
+      return <li>{gameRating.name}</li>
+    })
 
     // const getGameOne = () => {
 
@@ -131,10 +158,10 @@ const GameContainer = ({loggedInUser}) => {
     //     .then((data) => setGameTwo(data.results[randomInt(0, 39)]))
     // }
 
-    const getBothGames = () => {
-      getGiantBombGameOne();
-      getGiantBombGameTwo();
-    }
+    // const getBothGames = () => {
+    //   getGiantBombGameOne();
+    //   getGiantBombGameTwo();
+    // }
 
     const findGameBySlug = (slug) => {
       return games.find((game) => {
@@ -197,106 +224,7 @@ const GameContainer = ({loggedInUser}) => {
           <div className="phonegame">
             <h2>Your Top 100</h2>
             <ol>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
-              <li>Wii Sports</li>
-              <li>Wii Sports Resort</li>
-              <li>Wii Sports Legacy</li>
-              <li>Wii Sports Club</li>
-              <li>Wii Fit</li>
-              <li>Wii Party</li>
-              <li>Wii Play</li>
-              <li>Wii Fit Plus</li>
-              <li>RockBand</li>
-              <li>Mario and Sonic Olympics</li>
-              <li> Just Dance 4</li>
-              <li>Big Brain Academy</li>
-              <li>Disney’s Extreme Skate Adventure</li>
-              <li>Simpsons Hit & Run</li>
-              <li>The Simpsons Wrestling</li>
-              <li>The Simpsons Game</li>
-              <li>Fifa Street 2</li>
-              <li>Wii Sports 2</li>
-              <li>WWE2K17</li>
-              <li>Mincecraft</li>
+              {gameRatingsNodes}
             </ol>
           </div>
           
@@ -312,22 +240,21 @@ const GameContainer = ({loggedInUser}) => {
 
           <div className="row">
           <div className="col-4">
-  <button className="btn btn-primary custom-button" onClick={getGiantBombGameOne}>
+  <button className="btn btn-primary custom-button">
     Haven't played
   </button>
 </div>
 <div className="col-4">
-  <button className="btn btn-primary custom-button" onClick={getBothGames}>
+  <button className="btn btn-primary custom-button">
     Haven't played either
   </button>
 </div>
 <div className="col-4">
-  <button className="btn btn-primary custom-button" onClick={getGiantBombGameTwo}>
+  <button className="btn btn-primary custom-button">
     Haven't played
   </button>
 </div>
           </div>
-
         </div>
       </div>
     </div>
