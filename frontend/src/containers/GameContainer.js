@@ -15,15 +15,11 @@ const GameContainer = ({loggedInUser}) => {
     const [gameRatingTwo, setGameRatingTwo] = useState();
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
-    const [giantBombGameOne, setGiantBombGameOne] = useState();
-    const [giantBombGameTwo, setGiantBombGameTwo] = useState();
 
     
-    const request = new Request();
-    const urlGame = "/api/games";
-    const urlRating = "/api/gameratings";
 
     useEffect(() => {
+      const request = new Request();
 
       const gamePromise = request.get('/api/games');
 
@@ -31,11 +27,7 @@ const GameContainer = ({loggedInUser}) => {
         .then((data) => {
           setGames(data[0]);
         })
-
-        // getGameOne();
-        // getGameTwo();
-        getGiantBombGameOne();
-        getGiantBombGameTwo();
+        .then(getBothGames());
 
         const handleResize = () => {
           setIsDesktop(window.innerWidth >= 769);
@@ -47,94 +39,58 @@ const GameContainer = ({loggedInUser}) => {
         return () => {
           window.removeEventListener('resize', handleResize);
         };
-
-        // setGamesFunc();
     }, [])
-
 
     const handleClick = () => {
       const newGameOne = {
-        "id": giantBombGameOne.id,
-        "name": giantBombGameOne.name,
-        // "slug": giantBombGameOne.slug,
-        "image": giantBombGameOne.icon_url
-        // "genre": gameOne.genres[0].name
+        "id": gameOne.id,
+        "name": gameOne.name,
+        "slug": gameOne.slug,
+        "image": gameOne.image,
+        "genre": gameOne.genre
       }
 
       const newGameTwo = {
-        "id": giantBombGameTwo.id,
-        "name": giantBombGameTwo.name,
-        // "slug": giantBombGameTwo.slug,
-        "image": giantBombGameTwo.icon_url
-        // "genre": gameTwo.genres[0].name
+        "id": gameTwo.id,
+        "name": gameTwo.name,
+        "slug": gameTwo.slug,
+        "image": gameTwo.image,
+        "genre": gameTwo.genre
       }
 
       const gameRatingOne = {
-        "game_id": giantBombGameOne.id,
-        "user_id": loggedInUser.id,
-        "rating": 1200
-      }
-
-      const gameRatingTwo = {
-        "game_id": giantBombGameTwo,
+        "game_id": gameOne,
         "user_id": loggedInUser,
         "rating": 1200
       }
 
-      console.log(gameRatingOne);
-      console.log(gameRatingTwo);
-
-      if (!findGameBySlug(gameOne.slug)) {
-        request.post(urlGame, newGameOne);
-        request.post(urlRating, gameRatingOne);
+      const gameRatingTwo = {
+        "game_id": gameTwo,
+        "user_id": loggedInUser,
+        "rating": 1200
       }
 
-      if(!findGameBySlug(gameTwo.slug)) {
-        request.post(urlGame, newGameTwo);
-        request.post(urlRating, gameRatingTwo);
-      }
-      // getGameOne();
-      // getGameTwo();
+      getBothGames();
     }
 
-    const randomInt = (min, max) => {
-      return Math.floor(Math.random() * max) + min;
+    const GetRandomIndex = () => {
+      return Math.floor(Math.random() * games.length);
     }
 
-    const random100Int = () => {
-      return (Math.floor(Math.random() * 84)) * 100;
+    const getGameOne = () => {
+      setGameOne(games[GetRandomIndex()]);
     }
 
-    const getGiantBombGameOne = () => {
-      fetch("https://www.giantbomb.com/api/games/?api_key=99bb77b092abb16f3a3b310a902f39e3c6e8ee2d&format=json&offset=" + random100Int())
-      .then((response) => response.json())
-      .then((data) => setGiantBombGameOne(data.results[randomInt(0, 99)]))
+    const getGameTwo = () => {
+      setGameTwo(games[GetRandomIndex()]);
     }
-
-    const getGiantBombGameTwo = () => {
-      fetch("https://www.giantbomb.com/api/games/?api_key=99bb77b092abb16f3a3b310a902f39e3c6e8ee2d&format=json&offset=" + random100Int())
-      .then((response) => response.json())
-      .then((data) => setGiantBombGameTwo(data.results[randomInt(0, 99)]))
-    }
-
-    // const getGameOne = () => {
-
-    //     fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
-    //     .then((response) => response.json())
-    //     .then((data) => setGameOne(data.results[randomInt(0, 39)]))
-    // }
-
-    // const getGameTwo = () => {
-
-    //     fetch("https://api.rawg.io/api/games?page=" + randomInt(1, 500) + "&page_size=40&key=" + process.env.REACT_APP_API_KEY)
-    //     .then((response) => response.json())
-    //     .then((data) => setGameTwo(data.results[randomInt(0, 39)]))
-    // }
 
     const getBothGames = () => {
-      getGiantBombGameOne();
-      getGiantBombGameTwo();
+      getGameOne();
+      getGameTwo();
     }
+
+
 
     const findGameBySlug = (slug) => {
       return games.find((game) => {
@@ -148,16 +104,6 @@ const GameContainer = ({loggedInUser}) => {
 
       return <GameDetail game={foundGame} />;
     }
-
-    const GetRandomIndex = () => {
-      const randomIndex = Math.floor(Math.random() * games.length);
-      return randomIndex;
-    }
-
-    // const setGamesFunc = () => {
-    //   setGameOne(games[GetRandomIndex()]);
-    //   setGameTwo(games[GetRandomIndex()]);
-    // }
 
     function Probability(rating1, rating2) {
       return (
@@ -306,13 +252,13 @@ const GameContainer = ({loggedInUser}) => {
 
         <div className={isDesktop ? "col-lg-8" : "col-12"}>
           <div className="row">
-            <Game game={giantBombGameOne} handleClick={handleClick} />
-            <Game game={giantBombGameTwo} handleClick={handleClick} />
+            <Game game={gameOne} handleClick={handleClick} />
+            <Game game={gameTwo} handleClick={handleClick} />
           </div>
 
           <div className="row">
           <div className="col-4">
-  <button className="btn btn-primary custom-button" onClick={getGiantBombGameOne}>
+  <button className="btn btn-primary custom-button" onClick={getGameOne}>
     Haven't played
   </button>
 </div>
@@ -322,7 +268,7 @@ const GameContainer = ({loggedInUser}) => {
   </button>
 </div>
 <div className="col-4">
-  <button className="btn btn-primary custom-button" onClick={getGiantBombGameTwo}>
+  <button className="btn btn-primary custom-button" onClick={getGameTwo}>
     Haven't played
   </button>
 </div>
