@@ -16,6 +16,8 @@ const GameContainer = ({loggedInUser}) => {
     const [gameRatingTwo, setGameRatingTwo] = useState();
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
+    const [loading, setLoading] = useState(false);
+    
 
     
 
@@ -43,6 +45,10 @@ const GameContainer = ({loggedInUser}) => {
     }, [])
 
     const handleClick = () => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
       const newGameOne = {
         "id": gameOne.id,
         "name": gameOne.name,
@@ -173,9 +179,16 @@ const GameContainer = ({loggedInUser}) => {
 
         <div className={isDesktop ? "col-lg-8" : "col-12"}>
           <div className="row">
-            <Game game={gameOne} handleClick={handleClick} />
-            <Game game={gameTwo} handleClick={handleClick} />
+          {loading ? (
+             <div className="loading-bar">Saving your choice...</div>
+             ) : (
+              <>
+              <Game game={gameOne} handleClick={handleClick} />
+              <Game game={gameTwo} handleClick={handleClick} />
+            </>
+          )}
           </div>
+        
 
           <div className="row">
           <div className="col-4">
