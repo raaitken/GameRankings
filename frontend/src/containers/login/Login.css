@@ -14,8 +14,19 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.App{
+.App {
   margin-top: 200px;
+  opacity: 0; 
+  animation: fade-in 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .blurred-box {
@@ -28,6 +39,17 @@ body {
   background: inherit;
   border-radius: 2px;
   overflow: hidden;
+  opacity: 0; 
+  animation: fade-in-blurred-box 1s ease-in-out forwards;
+}
+
+@keyframes fade-in-blurred-box {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .blurred-box:after {
@@ -42,6 +64,17 @@ body {
   bottom: 0;
   box-shadow: inset 0 0 0 200px rgba(255, 255, 255, 0.05);
   filter: blur(10px);
+  opacity: 0; 
+  animation: fade-in-blur-box-after 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in-blur-box-after {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .user-login-box {
@@ -49,11 +82,33 @@ body {
   margin: auto;
   text-align: center;
   z-index: 1;
+  opacity: 0; 
+  animation: fade-in-user-login-box 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in-user-login-box {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .user-login-box > * {
   display: inline-block;
   width: 200px;
+  opacity: 0; 
+  animation: fade-in-user-login-box-items 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in-user-login-box-items {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .user-icon {
@@ -63,12 +118,34 @@ body {
   border-radius: 50%;
   background-size: contain;
   background-image: url('../images/jb.jpeg');
+  opacity: 0; 
+  animation: fade-in-user-icon 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in-user-icon {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .user-name {
   margin-top: 15px;
   margin-bottom: 15px;
   color: white;
+  opacity: 0; 
+  animation: fade-in-user-name 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in-user-name {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 input.user-password {
@@ -78,10 +155,60 @@ input.user-password {
   border-radius: 2px;
   padding: 5px 15px;
   border: 0;
+  opacity: 0; 
+  animation: fade-in-user-password 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in-user-password {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .login-button {
   margin-top: 15px;
+  opacity: 0; 
+  animation: fade-in-login-button 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in-login-button {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.forgot-password {
+  opacity: 0; 
+  animation: fade-in-forgot-password 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in-forgot-password {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.create-account {
+  opacity: 0; 
+  animation: fade-in-create-account 1s ease-in-out forwards;
+}
+
+@keyframes fade-in-create-account {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @media (max-width: 768px) {
@@ -89,5 +216,3 @@ input.user-password {
     display: none;
   }
 }
-
-
