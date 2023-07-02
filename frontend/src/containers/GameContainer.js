@@ -21,7 +21,6 @@ const GameContainer = ({loggedInUser}) => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     const [loading, setLoading] = useState(false);
-    
 
     const ratingsUrl = '/api/gameratings';
     const request = new Request();
