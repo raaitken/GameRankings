@@ -7,15 +7,15 @@ const Game = ({ game, handleClick }) => {
   
   return (
     <Fragment>
-    <div className="col-6">
-      <div className="game-item">
-        <img src={game.image} alt={game.name} className="game-image" onClick={() => {handleClick(game)}}/>
-        <div className="game-info">
-          <h3 className="game-name">{game.name}</h3>
+      <div className="col-6">
+        <div className="game-item">
+          <img src={game.image} alt={game.name} className="game-image" onClick={() => {handleClick(game)}}/>
+          <div className="game-info">
+            <h3 className="game-name">{game.name}</h3>
+          </div>
         </div>
       </div>
-    </div>
-  </Fragment>
+    </Fragment>
   
   );
 }
