@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link, Navigate} from 'react-router-dom'
 import './Login.css';
 import Button from 'react-bootstrap/Button';
@@ -20,6 +20,9 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
     for(let user of users){
         if(user.name === name && user.password === password){
             setUser(user)
+            // store the user in localStorage
+            localStorage.setItem('user', JSON.stringify(user))
+            // console.log(user)
         }
     }
     return <Link to="/games"/>
