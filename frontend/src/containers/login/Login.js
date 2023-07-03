@@ -22,11 +22,11 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
             setUser(user)
         }
     }
-    return <Link to="/"/>
+    return <Link to="/games"/>
   };
 
   if (loggedIn) {
-    return <Navigate to="/"/>;
+    return <Navigate to="/games"/>;
   }
 
   return (
@@ -38,12 +38,14 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
       <>
         
         <div className="user-info">
-         
+        
         </div>
         <div className="form-group">
           <input
             type="text"
             placeholder="Login"
+            name='login'
+            id='login'
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -51,6 +53,8 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
           <input
             type="password"
             placeholder="Password"
+            name='password'
+            id='password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
