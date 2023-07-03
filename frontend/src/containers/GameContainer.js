@@ -50,7 +50,7 @@ const GameContainer = ({loggedInUser, setUser}) => {
 
     useEffect(() => {
       sortGames();
-    }, [gameRatingOne, gameRatingTwo])
+    }, [])
     
     const sortGames = () => {
       // Sort list by rating
@@ -62,7 +62,7 @@ const GameContainer = ({loggedInUser, setUser}) => {
       return <li key={index}>{gameRating.name}</li>
     })
 
-    const handleClick = () => {
+    const handleClick = (game) => {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
