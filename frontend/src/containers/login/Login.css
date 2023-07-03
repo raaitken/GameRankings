@@ -216,3 +216,38 @@ input.user-password {
     display: none;
   }
 }
+
+.password-image {
+  width: 250px; 
+  height: 250px; 
+}
+
+@media (min-width: 768px) {
+  .alert {
+  background-color: #ff0015; 
+  color: #000000; 
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  width: 300px;
+  margin-left: 483px;
+  margin-top: -72px;
+}
+
+}
+
+@media (max-width: 768px) {
+  .alert {
+  background-color: #ff0015; 
+  color: #000000; 
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  width: 300px;
+  margin-left: 90px;
+  margin-top: -72px;
+}
+
+}
