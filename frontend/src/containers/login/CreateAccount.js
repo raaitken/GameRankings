@@ -22,7 +22,7 @@ const CreateAccount = ({users, addUser}) => {
         }
 
         if (userNameUsed === false) { 
-            alert('Account created successfully!');
+            alert('Welcome to GameRankings');
             // setCreated(true);
             const newUser = {
                 "name": userName,
@@ -58,7 +58,7 @@ const CreateAccount = ({users, addUser}) => {
                 onChange={(e) => setPassword(e.target.value)}
             />
             <br />
-            <button type="submit">Create Account</button>
+            <button className='cb'type="submit">Create Account</button>
         </form>
     );
     

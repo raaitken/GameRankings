@@ -15,12 +15,19 @@ background: linear-gradient(270deg, rgba(69,87,108,1) 9%, rgba(94,108,130,1) 17%
   
   .navbar-item {
     margin: 0 10px;
+    padding: 8px;
+    border-radius: 5px;
+  }
+
+  .navbar-item:hover {
+    background-color: #2b37c0;
   }
   
   .navbar-item a {
     text-decoration: none;
     color: black;
     font-weight: bold;
+    
   }
   
 .button.logout {
