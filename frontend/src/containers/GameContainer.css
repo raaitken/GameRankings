@@ -1,13 +1,23 @@
 
-
 .container {
   margin-top: 20px;
-
+  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: auto;
+  opacity: 0; 
+  animation: fade-in 1s ease-in-out forwards; 
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0; 
+  }
+  100% {
+    opacity: 1; 
+  }
 }
 
 .row > div {

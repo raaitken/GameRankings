@@ -88,7 +88,8 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
               </Button>
             </div>
             {showImage && (
-              <img src={profileImage} alt="Forgotten Password" className="password-image" />
+            <img src={profileImage} alt="Forgotten Password" className="password-image spin-image" />
+
             )}
           </div>
           <Button className="create-account" onClick={handleShowCreateAccount}>
