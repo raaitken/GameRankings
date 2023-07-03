@@ -35,7 +35,6 @@ const CreateAccount = ({users, addUser}) => {
             request.post('/api/users', newUser).then(() => {
                 window.location = '/';
             })
-            // FeedServices.addUser(newUser)
             return <Navigate to="/games"/>
         }
     }

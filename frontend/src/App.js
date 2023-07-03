@@ -14,8 +14,14 @@ const App = () => {
   const [showCreateAccount, setShowCreateAccount] = useState(false);
 
   useEffect(() => {
-    getUsers();
-    console.log(users);
+    getUsers()
+    const loggedUser = localStorage.getItem("user")
+    console.log("loggedUser", loggedUser);
+    if (loggedUser) {
+      const foundUser = JSON.parse(loggedUser)
+      // console.log(foundUser);
+      setUser(foundUser);
+    }
   }, [])
 
   const getUsers = () => {
@@ -47,7 +53,7 @@ const App = () => {
         </>
         :
         <>
-          <Route path="/*" element={<MainContainer loggedInUser={loggedInUser}/>}/>
+          <Route path="/*" element={<MainContainer loggedInUser={loggedInUser} setUser={setUser}/>}/>
         </>
         }
       </Routes>

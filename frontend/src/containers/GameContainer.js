@@ -6,7 +6,7 @@ import GameDetail from '../components/games/GameDetail';
 import Game from '../components/games/Game';
 
 
-const GameContainer = ({loggedInUser}) => {
+const GameContainer = ({loggedInUser, setUser}) => {
 
     const [games, setGames] = useState([]);
     const [gameUsers, setGameUsers] = useState([]);
@@ -213,7 +213,7 @@ const GameContainer = ({loggedInUser}) => {
 <div className="row">
 <div className="col-4">
   {!loading && (
-    <button className="btn btn-primary custom-button">
+    <button className="btn btn-primary custom-button" onClick={getGameOne}>
       Haven't played
     </button>
   )}
@@ -227,7 +227,7 @@ const GameContainer = ({loggedInUser}) => {
 </div>
 <div className="col-4">
   {!loading && (
-    <button className="btn btn-primary custom-button">
+    <button className="btn btn-primary custom-button" onClick={getGameTwo}>
       Haven't played
     </button>
   )}
