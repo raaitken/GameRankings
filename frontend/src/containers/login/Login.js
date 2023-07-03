@@ -14,6 +14,9 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
   const handleShowCreateAccount = () => {
     setShowCreateAccount(!showCreateAccount);
   }
+  const handleForgotPassword = () => {
+    alert("Haha 1-0")
+  }
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -64,7 +67,7 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
           <br />
           <Button className="login-button" onClick={handleLogin}>Login</Button>
           <div className="forgot-password">
-            <Button variant="link">Forgotten Password?</Button>
+            <Button variant="link" onClick={handleForgotPassword}>Forgotten Password?</Button>
           </div>
         </div>
         <Button className='create-account' onClick={handleShowCreateAccount}>Create Account</Button>
