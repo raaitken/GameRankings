@@ -37,7 +37,7 @@ const App = () => {
 
   return (
     <Router>
-    <NavBar/>
+    <NavBar setUser={setUser}/>
       <Routes>
         {!loggedInUser
         ?

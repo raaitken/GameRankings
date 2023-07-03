@@ -7,7 +7,7 @@ import ChartsImage from '../containers/images/charts.jpeg'
 import UsersImage from '../containers/images/users.png'
 
 
-const NavBar = () => {
+const NavBar = ({setUser}) => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
   const [isMobile, setIsMobile] = useState(false);
@@ -24,6 +24,10 @@ const NavBar = () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  const handleLogout = () => {
+    setUser(null);
+  }
 
   if (isLoginPage) {
     return null; // Render nothing if it's the login page
@@ -48,6 +52,7 @@ const NavBar = () => {
           <img src={UsersImage} alt="Users" className="nav-icon" />
           <span>Users</span>
         </Link>
+        <button className='logout' onClick={handleLogout}>Logout</button>
       </nav>
     );
   }
@@ -59,13 +64,13 @@ const NavBar = () => {
           <li className="navbar-item">
             <Link to="/games">Home</Link>
           </li>
-         
           <li className="navbar-item">
             <Link to="/charts">Charts</Link>
           </li>
           <li className="navbar-item">
             <Link to="/user">User</Link>
           </li>
+          <button className='logout' onClick={handleLogout}>Logout</button>
         </ul>
       </nav>
     </div>
