@@ -47,7 +47,7 @@ const GameContainer = ({loggedInUser}) => {
         };
     }, [])
 
-    const handleClick = () => {
+    const handleClick = (game) => {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
@@ -86,24 +86,47 @@ const GameContainer = ({loggedInUser}) => {
       return Math.floor(Math.random() * games.length);
     }
 
-    if (!gameUsers) {
+    if (!loggedInUser.games) {
       return "Loading....."
     }
 
+    // Sort list by rating
     const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[0].rating - gameA.gameUsers[0].rating);
 
     const gameRatingsNodes = gameRatings.map((gameRating, index) => {
       return <li key={index}>{gameRating.name}</li>
     })
+
+    const getGameOne = () => {
+      while (true) {
+        const newGame = games[GetRandomIndex()];
+        if (!newGame) {
+          return "Loading....."
+        }
+        if (newGame.id !== gameTwo.id && newGame.id !== gameOne.id){
+          setGameOne(newGame);
+          break
+        }
+      }
+    }
+
+    const getGameTwo = () => {
+      while (true) {
+        const newGame = games[GetRandomIndex()];
+        if (!newGame) {
+          return "Loading....."
+        }
+        if (newGame.id !== gameOne.id && newGame.id !== gameTwo.id){
+          setGameTwo(newGame);
+          break
+        }
+      }
+    }
     
     const getBothGames = () => {
-      
-      
       while (true) {
         const newGameOne = games[GetRandomIndex()];
         const newGameTwo = games[GetRandomIndex()];
-        console.log("Game 1: ", newGameOne);
-        console.log("Game 2: ", newGameTwo);
         if (!newGameOne && !newGameTwo) {
           return "Loading....."
         }
@@ -164,7 +187,7 @@ const GameContainer = ({loggedInUser}) => {
         <div className='gameslist'>
         {isDesktop && (
           <div className="phonegame">
-            <h2>Your Top 100</h2>
+            <h2>Your Top Games</h2>
             <ol>
               {gameRatingsNodes}
             </ol>
@@ -190,7 +213,7 @@ const GameContainer = ({loggedInUser}) => {
           <div className="row">
           <div className="col-4">
 
-  <button className="btn btn-primary custom-button">
+  <button className="btn btn-primary custom-button" onClick={getGameOne}>
     Haven't played
   </button>
 </div>
@@ -200,7 +223,7 @@ const GameContainer = ({loggedInUser}) => {
   </button>
 </div>
 <div className="col-4">
-  <button className="btn btn-primary custom-button">
+  <button className="btn btn-primary custom-button" onClick={getGameTwo}>
     Haven't played
   </button>
 </div>

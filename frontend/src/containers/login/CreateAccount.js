@@ -9,7 +9,8 @@ const CreateAccount = ({users, addUser}) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleCreateAccount = () => {
+    const handleCreateAccount = (event) => {
+        event.preventDefault();
         console.log("handleCreateAccountCalled");
         let userNameUsed = false;
         for(let user of users){
@@ -31,32 +32,34 @@ const CreateAccount = ({users, addUser}) => {
             console.log("newUser", newUser);
 
             const request = new Request();
-            request.post('/users', newUser).then(() => {
+            request.post('/api/users', newUser).then(() => {
                 window.location = '/';
             })
             // FeedServices.addUser(newUser)
-            return <Navigate to="/"/>
+            return <Navigate to="/games"/>
         }
     }
 
     return (
-        <form className="create">
-        <h1>Create Account</h1>
-        <input
-            type="text"
-            placeholder="User Name"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-        />
-        <br />
-        <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button onClick={handleCreateAccount}>Create Account</button>
+        <form className="create" onSubmit={handleCreateAccount}>
+            <h1>Create Account</h1>
+            <input
+                type="text"
+                placeholder="User Name"
+                name='username'
+                value={userName}
+                onChange={(e) => setUserName(e.target.value)}
+            />
+            <br />
+            <input
+                type="password"
+                placeholder="Password"
+                name='password'
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <br />
+            <button type="submit">Create Account</button>
         </form>
     );
     
