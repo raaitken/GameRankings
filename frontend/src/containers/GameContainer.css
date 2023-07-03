@@ -259,12 +259,42 @@ background: linear-gradient(0deg, rgba(48,25,48,1) 22%, rgba(8,21,38,1) 49%, rgb
     }
   }
   
+  @media (min-width: 768px) {
+    .loading-bar {
+      position: fixed;
+      top: 50%;
+      left: 60%;
+      transform: translate(-50%, -50%);
+      width: 40%;
+      height: 30px;
+      background-color: #000000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 4px;
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: bold;
+    }
+  }
+  
+  @media (max-width: 768px) {
   .loading-bar {
-    width: 100%;
+    position: fixed;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
     height: 30px;
     background-color: #000000;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+  }}
   
