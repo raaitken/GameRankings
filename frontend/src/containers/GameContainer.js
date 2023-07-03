@@ -81,18 +81,25 @@ const GameContainer = ({loggedInUser, setUser}) => {
     const handleRatingsPost = (gameOne, gameTwo) => {
 
       let gameOneObject = {
+        "id": {
+          "game_id": gameOne.id,
+          "user_id": loggedInUser.id
+        },
         "game": gameOne.slug,
         "user": loggedInUser.name,
         "rating": 1200
       };
       let gameTwoObject = {
+        "id": {
+          "game_id": gameTwo.id,
+          "user_id": loggedInUser.id
+        },
         "game": gameTwo.slug,
         "user": loggedInUser.name,
         "rating": 1200
       };
 
 
-      // console.log(gamesRatings[0])
       if (findGameById(gameOne.id)) {
         const game = gamesRatings.find((gameRating) => 
           (gameRating["id"]["game_id"] === gameOne.id && gameRating["id"]["user_id"] === loggedInUser.id)
@@ -106,13 +113,34 @@ const GameContainer = ({loggedInUser, setUser}) => {
           (gameRating["id"]["game_id"] === gameTwo.id && gameRating["id"]["user_id"] === loggedInUser.id)
         )
 
-        // gameTwoObject.rating = game.rating;
-        // console.log(game);
+        gameTwoObject.rating = game.rating;
       }
 
         EloRating(gameOneObject, gameTwoObject, 30, true)
-        request.post(ratingsUrl, gameOneObject);
-        request.post(ratingsUrl, gameTwoObject);
+        
+      if (!findGameById(gameOne.id)) {
+        handlePost(gameOneObject);
+      } else {
+        handleUpdate(gameOneObject);
+
+      }
+
+      if (!findGameById(gameTwo.id)) {
+        handlePost(gameTwoObject);
+      } else {
+        handleUpdate(gameTwoObject);
+      }
+        
+    }
+
+    const handlePost = (gameRating) => {
+      const request = new Request();
+      request.post('/api/gameratings', gameRating);
+    }
+
+    const handleUpdate = (gameRating) => {
+      const request = new Request();
+      request.patch('/api/gameratings' + gameRating.id, gameRating);
     }
 
     const GetRandomIndex = () => {

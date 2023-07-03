@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.lang.Double.parseDouble;
 
@@ -31,6 +32,10 @@ public class GameUserController {
         return new ResponseEntity<>(gameUserRepository.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/gameratings/{id}")
+    public ResponseEntity<Optional<GameUser>> getGame(@PathVariable Long id){
+        return new ResponseEntity<>(gameUserRepository.findById(id), HttpStatus.OK);
+    }
     @PostMapping(value = "/gameratings")
     public ResponseEntity<GameUser> postGameUser(@RequestBody Map<String, Object> payload){
         Object gameSlug = payload.get("game");
