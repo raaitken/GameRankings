@@ -22,7 +22,6 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
             setUser(user)
             // store the user in localStorage
             localStorage.setItem('user', JSON.stringify(user))
-            // console.log(user)
         }
     }
     return <Link to="/games"/>

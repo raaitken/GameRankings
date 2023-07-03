@@ -14,11 +14,11 @@ const App = () => {
 
   useEffect(() => {
     getUsers()
+    // get user from localstorage
     const loggedUser = localStorage.getItem("user")
-    console.log("loggedUser", loggedUser);
+    // if user exists in storage set to state
     if (loggedUser) {
       const foundUser = JSON.parse(loggedUser)
-      // console.log(foundUser);
       setUser(foundUser);
     }
   }, [])

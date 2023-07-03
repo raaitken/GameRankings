@@ -11,7 +11,7 @@ const Ranking = ({loggedInUser}) => {
   const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[0].rating - gameA.gameUsers[0].rating);
 
   const gameRatingsNodes = gameRatings.map((gameRating, index) => {
-    return <li>{gameRating.name}</li>
+    return <li key={index}>{gameRating.name}</li>
   })
 
   return (
