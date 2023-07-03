@@ -1,16 +1,20 @@
 package com.example.gamerankings.controllers;
 
+import com.example.gamerankings.models.Game;
 import com.example.gamerankings.models.GameUser;
+import com.example.gamerankings.models.User;
 import com.example.gamerankings.repositories.GameRepository;
 import com.example.gamerankings.repositories.GameUserRepository;
 import com.example.gamerankings.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
+
+import static java.lang.Double.parseDouble;
 
 @RestController
 public class GameUserController {
@@ -27,14 +31,27 @@ public class GameUserController {
         return new ResponseEntity<>(gameUserRepository.findAll(), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/gameratings")
+    public ResponseEntity<GameUser> postGameUser(@RequestBody Map<String, Object> payload){
+        Object gameSlug = payload.get("game");
+        Object userName = payload.get("user");
+        Object rating = payload.get("rating");
+        Game game = gameRepository.findBySlug(gameSlug.toString());
+        User user = userRepository.findByName(userName.toString());
+        GameUser newGameUser = new GameUser(game, user, parseDouble(rating.toString()));
+        gameUserRepository.save(newGameUser);
+        return new ResponseEntity<>(newGameUser, HttpStatus.CREATED);
+    }
+
 //    @PostMapping(value = "/gameratings")
-//    public ResponseEntity<GameUser> postRating(@RequestBody Map<String, Object> payload) throws InterruptedException {
-//        Object game = payload.get("game_id");
-//        Object user = payload.get("user_id");
-//        Object rating = payload.get("rating");
-//
-//        GameUser newRating = new GameUser(game, user, parseDouble(rating.toString()));
-//        gameUserRepository.save(newRating);
-//        return new ResponseEntity<>(newRating, HttpStatus.CREATED);
+//    public ResponseEntity<GameUser> postGameUser(@RequestBody GameUser gameUser){
+//        gameUserRepository.save(gameUser);
+//        return new ResponseEntity<>(gameUser, HttpStatus.CREATED);
 //    }
+
+    @PatchMapping(value = "/gameratings/{id}")
+    public ResponseEntity<GameUser> updateGameUser(@RequestBody GameUser gameUser) {
+        gameUserRepository.save(gameUser);
+        return new ResponseEntity<>(gameUser, HttpStatus.OK);
+    }
 }
