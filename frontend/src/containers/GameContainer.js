@@ -12,15 +12,20 @@ const GameContainer = ({loggedInUser}) => {
     const [gameUsers, setGameUsers] = useState([]);
     const [gameOne, setGameOne] = useState();
     const [gameTwo, setGameTwo] = useState();
-    const [gameRating, setGameRating] = useState({
-      "game": null,
-      "user": null,
+    const [gameRatingOne, setGameRatingOne] = useState({
+      "game": "",
+      "user": "",
       "rating": 0
     });
-    const [gameRatingTwo, setGameRatingTwo] = useState();
+    const [gameRatingTwo, setGameRatingTwo] = useState({
+      "game": "",
+      "user": "",
+      "rating": 0
+    });
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     const [loading, setLoading] = useState(false);
+    const [gameOneWin, setGameOneWin] = useState(false);
 
     const ratingsUrl = '/api/gameratings';
     const request = new Request();
@@ -45,7 +50,7 @@ const GameContainer = ({loggedInUser}) => {
         return () => {
           window.removeEventListener('resize', handleResize);
         };
-    }, [])
+    }, [gameRatingOne, gameRatingTwo])
 
     const handleClick = (game) => {
       setLoading(true);
@@ -65,21 +70,46 @@ const GameContainer = ({loggedInUser}) => {
         "rating": 1200
       }
 
-      handleRatingsPost(gameOne);
-      handleRatingsPost(gameTwo);
+      handleRatingsPost(gameOne, gameTwo);
       
       getBothGames();
     }
 
-    const handleRatingsPost = (game) => {
-      if (!findGameById(game.id)) {
-        setGameRating({
-          "game": game.slug,
-          "user": loggedInUser.name,
-          "rating": 1200
-        })
-        request.post(ratingsUrl, gameRating);
+    const handleRatingsPost = (gameOne, gameTwo) => {
+
+      let gameOneObject = {};
+      let gameTwoObject = {};
+
+      if (!findGameById(gameOne.id)) {
+      gameOneObject = {
+        "game": gameOne.slug,
+        "user": loggedInUser.name,
+        "rating": 1200
       }
+    } else {
+
+    }
+
+    if (!findGameById(gameTwo.id)) {
+      gameTwoObject = {
+        "game": gameTwo.slug,
+        "user": loggedInUser.name,
+        "rating": 1200
+      }
+    } else {
+      
+    }
+      if (!findGameById(gameOne.id)) {
+        setGameRatingOne(gameOneObject)
+      }
+
+      if (!findGameById(gameTwo.id)) {
+        setGameRatingTwo(gameTwoObject)
+      }
+
+        EloRating(gameOneObject, gameTwoObject, 30, true)
+        request.post(ratingsUrl, gameOneObject);
+        request.post(ratingsUrl, gameTwoObject);
     }
 
     const GetRandomIndex = () => {
@@ -144,13 +174,6 @@ const GameContainer = ({loggedInUser}) => {
       })
     };
 
-    // const GameDetailWrapper = () => {
-    //   const { slug } = useParams();
-    //   let foundGame = findGameBySlug(slug);
-
-    //   return <GameDetail game={foundGame} />;
-    // }
-
     function Probability(rating1, rating2) {
       return (
           (1.0 * 1.0) / (1 + 1.0 * Math.pow(10, (1.0 * (rating1 - rating2)) / 400))
@@ -160,25 +183,29 @@ const GameContainer = ({loggedInUser}) => {
       function EloRating(Ra, Rb, K, d) {
         // To calculate the Winning
         // Probability of Player B
-        let Pb = Probability(Ra, Rb);
+        let Pb = Probability(Ra.rating, Rb.rating);
         
         // To calculate the Winning
         // Probability of Player A
-        let Pa = Probability(Rb, Ra);
+        let Pa = Probability(Rb.rating, Ra.rating);
         
         // Case 1 When Player A wins
         // Updating the Elo Ratings
         if (d === true) {
-            Ra = Ra + K * (1 - Pa);
-            Rb = Rb + K * (0 - Pb);
+            Ra.rating = Ra.rating + K * (1 - Pa);
+            Rb.rating = Rb.rating + K * (0 - Pb);
+            
         }
         
         // Case 2 When Player B wins
         // Updating the Elo Ratings
         else {
-            Ra = Ra + K * (0 - Pa);
-            Rb = Rb + K * (1 - Pb);
+            Ra.rating = Ra.rating + K * (0 - Pa);
+            Rb.rating = Rb.rating + K * (1 - Pb);
         }
+
+        setGameRatingOne(Ra);
+        setGameRatingTwo(Rb);
       }
 
     return (

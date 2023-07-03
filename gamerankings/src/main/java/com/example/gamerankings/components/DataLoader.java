@@ -2,7 +2,6 @@ package com.example.gamerankings.components;
 
 import com.example.gamerankings.models.Game;
 import com.example.gamerankings.models.GameUser;
-import com.example.gamerankings.models.Platform;
 import com.example.gamerankings.models.User;
 import com.example.gamerankings.repositories.GameRepository;
 import com.example.gamerankings.repositories.GameUserRepository;
@@ -12,8 +11,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 
 @Profile("!test")
 @Component
