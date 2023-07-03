@@ -1,0 +1,50 @@
+.create {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 20px;
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: -50px;
+
+  }
+  
+  .create h1 {
+    text-align: center;
+  }
+  
+  .create input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .create button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create button:hover {
+    background-color: #0069d9;
+  }
+  
+  .cb {
+    color: black;
+  }
+
+  @media (max-width: 768px) {
+    .create {
+      margin-top: -100px;
+    }
+  }

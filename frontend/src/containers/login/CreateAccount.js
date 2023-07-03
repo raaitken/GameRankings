@@ -58,7 +58,7 @@ const CreateAccount = ({users, addUser}) => {
                 onChange={(e) => setPassword(e.target.value)}
             />
             <br />
-            <button type="submit">Create Account</button>
+            <button className='cb'type="submit">Create Account</button>
         </form>
     );
     
