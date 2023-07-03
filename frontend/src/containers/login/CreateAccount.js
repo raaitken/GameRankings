@@ -22,7 +22,7 @@ const CreateAccount = ({users, addUser}) => {
         }
 
         if (userNameUsed === false) { 
-            alert('Welcome to GameRankings {user name}');
+            alert('Welcome to GameRankings');
             // setCreated(true);
             const newUser = {
                 "name": userName,
