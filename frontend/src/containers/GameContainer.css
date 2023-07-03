@@ -241,8 +241,13 @@ background: linear-gradient(0deg, rgba(48,25,48,1) 22%, rgba(8,21,38,1) 49%, rgb
     align-items: center;
     text-align: center;
     outline: none;
-    color: rgb(98, 136, 217);
+    color: rgb(55, 123, 181);
     border: none !important;
+  }
+
+  .but:hover {
+   color: crimson;
+   text-decoration: underline #FF3028;
   }
 
 .nav-icon {

@@ -23,3 +23,34 @@ background: linear-gradient(270deg, rgba(69,87,108,1) 9%, rgba(94,108,130,1) 17%
     font-weight: bold;
   }
   
+.button.logout {
+  text-decoration: none;
+  padding: 8px;
+  outline: none;
+  color: black;
+  background-color: transparent;
+  border: none !important;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+}
+
+.button.logout:hover {
+  background-color: #c0392b;
+}
+
+.button.logout:focus {
+  outline: none;
+}
+
+.button.logout:active {
+  background-color: #962d22;
+}
+
+.phone-nav-item{
+   outline: none;
+}
+
+
