@@ -43,12 +43,6 @@ public class GameUserController {
         return new ResponseEntity<>(newGameUser, HttpStatus.CREATED);
     }
 
-//    @PostMapping(value = "/gameratings")
-//    public ResponseEntity<GameUser> postGameUser(@RequestBody GameUser gameUser){
-//        gameUserRepository.save(gameUser);
-//        return new ResponseEntity<>(gameUser, HttpStatus.CREATED);
-//    }
-
     @PatchMapping(value = "/gameratings/{id}")
     public ResponseEntity<GameUser> updateGameUser(@RequestBody GameUser gameUser) {
         gameUserRepository.save(gameUser);
