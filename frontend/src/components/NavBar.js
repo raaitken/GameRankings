@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import './NavBar.css';
-import HomeImage from '../containers/images/home.png'
-import RankingsImage from '../containers/images/Ranking.png'
-import ChartsImage from '../containers/images/charts.jpeg'
-import UsersImage from '../containers/images/users.png'
+import HomeImage from '../containers/images/home.png';
+import RankingsImage from '../containers/images/Ranking.png';
+import ChartsImage from '../containers/images/charts.jpeg';
+import UsersImage from '../containers/images/users.png';
+import LogImage from '../containers/images/logout.png';
 
-
-const NavBar = ({setUser}) => {
+const NavBar = ({ setUser }) => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
   const [isMobile, setIsMobile] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,11 +28,14 @@ const NavBar = ({setUser}) => {
 
   const handleLogout = () => {
     setUser(null);
-    localStorage.clear();
-  }
+  };
 
-  if (isLoginPage) {
-    return null; // Render nothing if it's the login page
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem('loggedInUser')); // Check if user is logged in
+  }, [location]);
+
+  if (!isLoggedIn) {
+    return null; // Return null to hide the navigation bar
   }
 
   if (isMobile) {
@@ -53,7 +57,10 @@ const NavBar = ({setUser}) => {
           <img src={UsersImage} alt="Users" className="nav-icon" />
           <span>Users</span>
         </Link>
-        <button className='logout' onClick={handleLogout}>Logout</button>
+        <button className="but" onClick={handleLogout}>
+        <img src={LogImage} alt="Users" className="nav-icon" />
+          <span>Log Out</span>
+        </button>
       </nav>
     );
   }
@@ -71,7 +78,9 @@ const NavBar = ({setUser}) => {
           <li className="navbar-item">
             <Link to="/user">User</Link>
           </li>
-          <button className='logout' onClick={handleLogout}>Logout</button>
+          <button className="button logout" onClick={handleLogout}>
+            Logout
+          </button>
         </ul>
       </nav>
     </div>
