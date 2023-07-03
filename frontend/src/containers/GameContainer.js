@@ -101,7 +101,6 @@ const GameContainer = ({loggedInUser, setUser}) => {
         handlePost(gameOneObject);
       } else {
         handleUpdate(gameOneObject);
-
       }
 
       if (!findGameById(gameTwo.id)) {
@@ -119,7 +118,7 @@ const GameContainer = ({loggedInUser, setUser}) => {
 
     const handleUpdate = (gameRating) => {
       const request = new Request();
-      request.patch('/api/gameratings' + gameRating.id, gameRating);
+      request.patch('/api/gameratings/update', gameRating);
     }
 
     const GetRandomIndex = () => {
