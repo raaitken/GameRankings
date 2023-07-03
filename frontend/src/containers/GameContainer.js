@@ -52,21 +52,6 @@ const GameContainer = ({loggedInUser}) => {
       setTimeout(() => {
         setLoading(false);
       }, 2000);
-      const newGameOne = {
-        "id": gameOne.id,
-        "name": gameOne.name,
-        "slug": gameOne.slug,
-        "image": gameOne.image,
-        "genre": gameOne.genre
-      }
-
-      const newGameTwo = {
-        "id": gameTwo.id,
-        "name": gameTwo.name,
-        "slug": gameTwo.slug,
-        "image": gameTwo.image,
-        "genre": gameTwo.genre
-      }
 
       const gameRatingOne = {
         "game": gameOne,
@@ -90,7 +75,7 @@ const GameContainer = ({loggedInUser}) => {
       if (!findGameById(game.id)) {
         setGameRating({
           "game": game.slug,
-          "user": loggedInUser,
+          "user": loggedInUser.name,
           "rating": 1200
         })
         request.post(ratingsUrl, gameRating);
@@ -110,11 +95,6 @@ const GameContainer = ({loggedInUser}) => {
     const gameRatingsNodes = gameRatings.map((gameRating, index) => {
       return <li key={index}>{gameRating.name}</li>
     })
-
-    // const getGameOne = () => {
-    //   setGameOne(games[GetRandomIndex()]);
-    // }
-
     
     const getBothGames = () => {
       
@@ -197,8 +177,8 @@ const GameContainer = ({loggedInUser}) => {
         <div className={isDesktop ? "col-lg-8" : "col-12"}>
           <div className="row">
           {loading ? (
-             <div className="loading-bar">Saving your choice...</div>
-             ) : (
+            <div className="loading-bar">Saving your choice...</div>
+            ) : (
               <>
               <Game game={gameOne} handleClick={handleClick} />
               <Game game={gameTwo} handleClick={handleClick} />

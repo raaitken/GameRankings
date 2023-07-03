@@ -34,11 +34,11 @@ public class GameUserController {
     @PostMapping(value = "/gameratings")
     public ResponseEntity<GameUser> postGameUser(@RequestBody Map<String, Object> payload){
         Object gameSlug = payload.get("game");
-        Object user = payload.get("user");
+        Object userName = payload.get("user");
         Object rating = payload.get("rating");
-        System.out.println(gameSlug);
         Game game = gameRepository.findBySlug(gameSlug.toString());
-        GameUser newGameUser = new GameUser((Game) game, (User) user, parseDouble(rating.toString()));
+        User user = userRepository.findByName(userName.toString());
+        GameUser newGameUser = new GameUser(game, user, parseDouble(rating.toString()));
         gameUserRepository.save(newGameUser);
         return new ResponseEntity<>(newGameUser, HttpStatus.CREATED);
     }
