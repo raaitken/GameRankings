@@ -7,11 +7,10 @@ import ChartsImage from '../containers/images/charts.jpeg';
 import UsersImage from '../containers/images/users.png';
 import LogImage from '../containers/images/logout.png';
 
-const NavBar = ({ setUser }) => {
+const NavBar = ({ setUser, loggedInUser }) => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
   const [isMobile, setIsMobile] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -30,11 +29,7 @@ const NavBar = ({ setUser }) => {
     setUser(null);
   };
 
-  useEffect(() => {
-    setIsLoggedIn(!!localStorage.getItem('loggedInUser')); // Check if user is logged in
-  }, [location]);
-
-  if (!isLoggedIn) {
+  if (!loggedInUser) {
     return null; // Return null to hide the navigation bar
   }
 

@@ -11,7 +11,6 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     getUsers()
@@ -32,11 +31,6 @@ const App = () => {
     })
   }
 
-  useEffect(() => {
-    setIsLoggedIn(!!loggedInUser);
-  }, [loggedInUser]);
-
-
   const setUser = (newUser) => {
     setLoggedInUser(newUser);
   }
@@ -46,12 +40,9 @@ const App = () => {
     setUser(updatedUsers);
   }
 
-
-
-
   return (
     <Router>
-      {isLoggedIn && <NavBar setUser={setUser} />} {/* Show navigation bar only if user is logged in */}
+      {loggedInUser && <NavBar setUser={setUser} loggedInUser={loggedInUser}/>} {/* Show navigation bar only if user is logged in */}
       <Routes>
         {!loggedInUser ? (
           <>
