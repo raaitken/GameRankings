@@ -27,6 +27,7 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
 
     let userFound = false;
     for(let user of users){
+
       if(user.name === name && user.password === password){
         setUser(user);
         localStorage.setItem('user', JSON.stringify(user));

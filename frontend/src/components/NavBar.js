@@ -27,6 +27,7 @@ const NavBar = ({ setUser, loggedInUser }) => {
 
   const handleLogout = () => {
     setUser(null);
+    localStorage.clear();
   };
 
   if (!loggedInUser) {

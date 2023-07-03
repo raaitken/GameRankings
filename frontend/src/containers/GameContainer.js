@@ -25,7 +25,7 @@ const GameContainer = ({loggedInUser, setUser}) => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     const [loading, setLoading] = useState(false);
-    const [gameOneWin, setGameOneWin] = useState(false);
+    const [gameOneWin, setGameOneWin] = useState(null);
 
     const ratingsUrl = '/api/gameratings';
     const request = new Request();
@@ -50,7 +50,23 @@ const GameContainer = ({loggedInUser, setUser}) => {
         return () => {
           window.removeEventListener('resize', handleResize);
         };
+
+        
+    }, [])
+
+    useEffect(() => {
+      sortGames();
     }, [gameRatingOne, gameRatingTwo])
+    
+    const sortGames = () => {
+      // Sort list by rating
+      const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[0].rating - gameA.gameUsers[0].rating);
+      return gameRatings;
+    }
+    
+    const gameRatingsNodes = sortGames().map((gameRating, index) => {
+      return <li key={index}>{gameRating.name}</li>
+    })
 
     const handleClick = (game) => {
       setLoading(true);
@@ -72,6 +88,11 @@ const GameContainer = ({loggedInUser, setUser}) => {
 
       handleRatingsPost(gameOne, gameTwo);
       
+      if (game.id === gameOne.id) {
+        setGameOneWin(true)
+      } else if (game.id === gameTwo.id) {
+        setGameOneWin(false)
+      }
       getBothGames();
     }
 
@@ -119,13 +140,6 @@ const GameContainer = ({loggedInUser, setUser}) => {
     if (!loggedInUser.games) {
       return "Loading....."
     }
-
-    // Sort list by rating
-    const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[0].rating - gameA.gameUsers[0].rating);
-
-    const gameRatingsNodes = gameRatings.map((gameRating, index) => {
-      return <li key={index}>{gameRating.name}</li>
-    })
 
     const getGameOne = () => {
       while (true) {
