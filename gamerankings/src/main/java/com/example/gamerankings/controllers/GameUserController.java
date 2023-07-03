@@ -2,6 +2,7 @@ package com.example.gamerankings.controllers;
 
 import com.example.gamerankings.models.Game;
 import com.example.gamerankings.models.GameUser;
+import com.example.gamerankings.models.GameUserId;
 import com.example.gamerankings.models.User;
 import com.example.gamerankings.repositories.GameRepository;
 import com.example.gamerankings.repositories.GameUserRepository;
@@ -48,8 +49,16 @@ public class GameUserController {
         return new ResponseEntity<>(newGameUser, HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/gameratings/{id}")
-    public ResponseEntity<GameUser> updateGameUser(@RequestBody GameUser gameUser) {
+    @PatchMapping(value = "/gameratings/update")
+    public ResponseEntity<GameUser> updateGameUser(@RequestBody Map<String, Object> payload) {
+        Object id = payload.get("id");
+        Object gameSlug = payload.get("game");
+        Object userName = payload.get("user");
+        Object rating = payload.get("rating");
+        Game game = gameRepository.findBySlug(gameSlug.toString());
+        User user = userRepository.findByName(userName.toString());
+        GameUser gameUser = gameUserRepository.findById((GameUserId) id);
+        gameUser.setRating(parseDouble(rating.toString()));
         gameUserRepository.save(gameUser);
         return new ResponseEntity<>(gameUser, HttpStatus.OK);
     }
