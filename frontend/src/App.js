@@ -8,10 +8,10 @@ import ErrorPage from './containers/login/ErrorPage.js'
 import Request from './helpers/request.js';
 
 const App = () => {
-
   const [users, setUsers] = useState([]);
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     getUsers()
@@ -32,6 +32,11 @@ const App = () => {
     })
   }
 
+  useEffect(() => {
+    setIsLoggedIn(!!loggedInUser);
+  }, [loggedInUser]);
+
+
   const setUser = (newUser) => {
     setLoggedInUser(newUser);
   }
@@ -41,24 +46,29 @@ const App = () => {
     setUser(updatedUsers);
   }
 
+
+
+
   return (
     <Router>
-    <NavBar setUser={setUser}/>
+      {isLoggedIn && <NavBar setUser={setUser} />} {/* Show navigation bar only if user is logged in */}
       <Routes>
-        {!loggedInUser
-        ?
-        <>
-          <Route path="/*" element={<Login setUser={setUser} users={users} addUser={addUser} showCreateAccount={showCreateAccount} setShowCreateAccount={setShowCreateAccount}/>}/>
-          <Route path="*" element={<ErrorPage/>}/>
-        </>
-        :
-        <>
-          <Route path="/*" element={<MainContainer loggedInUser={loggedInUser} setUser={setUser}/>}/>
-        </>
-        }
+        {!loggedInUser ? (
+          <>
+            <Route
+              path="/*"
+              element={<Login setUser={setUser} users={users} addUser={addUser} showCreateAccount={showCreateAccount} setShowCreateAccount={setShowCreateAccount} />}
+            />
+            <Route path="*" element={<ErrorPage />} />
+          </>
+        ) : (
+          <>
+            <Route path="/*" element={<MainContainer loggedInUser={loggedInUser} />} />
+          </>
+        )}
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
