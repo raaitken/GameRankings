@@ -1,27 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, useParams } from 'react-router-dom';
 import './GameContainer.css';
 import Request from '../helpers/request';
-import GameDetail from '../components/games/GameDetail';
 import Game from '../components/games/Game';
 
 
 const GameContainer = ({loggedInUser, setUser, sortByRating}) => {
 
     const [games, setGames] = useState([]);
-    const [gameUsers, setGameUsers] = useState([]);
+    const [gamesRatings, setGamesRatings] = useState([]);
     const [gameOne, setGameOne] = useState();
     const [gameTwo, setGameTwo] = useState();
-    const [gameRatingOne, setGameRatingOne] = useState({
-      "game": "",
-      "user": "",
-      "rating": 0
-    });
-    const [gameRatingTwo, setGameRatingTwo] = useState({
-      "game": "",
-      "user": "",
-      "rating": 0
-    });
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     const [loading, setLoading] = useState(false);
@@ -33,12 +21,18 @@ const GameContainer = ({loggedInUser, setUser, sortByRating}) => {
     useEffect(() => {
 
       const gamePromise = request.get('/api/games');
+      const gameRatingPromise = request.get('/api/gameratings')
 
       Promise.all([gamePromise])
         .then((data) => {
           setGames(data[0]);
         })
         .then(getBothGames());
+
+      Promise.all([gameRatingPromise])
+        .then((data) => {
+          setGamesRatings(data[0]);
+        })
 
         const handleResize = () => {
           setIsDesktop(window.innerWidth >= 769);
@@ -64,18 +58,6 @@ const GameContainer = ({loggedInUser, setUser, sortByRating}) => {
         setLoading(false);
       }, 1000);
 
-      const gameRatingOne = {
-        "game": gameOne,
-        "user": loggedInUser,
-        "rating": 1200
-      }
-
-      const gameRatingTwo = {
-        "game": gameTwo,
-        "user": loggedInUser,
-        "rating": 1200
-      }
-
       handleRatingsPost(gameOne, gameTwo);
       
       if (game.id === gameOne.id) {
@@ -88,39 +70,65 @@ const GameContainer = ({loggedInUser, setUser, sortByRating}) => {
 
     const handleRatingsPost = (gameOne, gameTwo) => {
 
-      let gameOneObject = {};
-      let gameTwoObject = {};
-
-      if (!findGameById(gameOne.id)) {
-      gameOneObject = {
+      let gameOneObject = {
+        "game_id": gameOne.id,
+        "user_id": loggedInUser.id,
         "game": gameOne.slug,
         "user": loggedInUser.name,
         "rating": 1200
-      }
-    } else {
-
-    }
-
-    if (!findGameById(gameTwo.id)) {
-      gameTwoObject = {
+      };
+      let gameTwoObject = {
+        "id": {
+          "game_id": gameTwo.id,
+          "user_id": loggedInUser.id
+        },
         "game": gameTwo.slug,
         "user": loggedInUser.name,
         "rating": 1200
-      }
-    } else {
-      
-    }
-      if (!findGameById(gameOne.id)) {
-        setGameRatingOne(gameOneObject)
+      };
+
+
+      if (findGameById(gameOne.id)) {
+        const game = gamesRatings.find((gameRating) => 
+          (gameRating["id"]["game_id"] === gameOne.id && gameRating["id"]["user_id"] === loggedInUser.id)
+        )
+
+        gameOneObject.rating = game.rating;
+        console.log(gameOneObject);
       }
 
-      if (!findGameById(gameTwo.id)) {
-        setGameRatingTwo(gameTwoObject)
+      if (findGameById(gameTwo.id)) {
+        const game = gamesRatings.find((gameRating) => 
+          (gameRating["id"]["game_id"] === gameTwo.id && gameRating["id"]["user_id"] === loggedInUser.id)
+        )
+
+        gameTwoObject.rating = game.rating;
       }
 
         EloRating(gameOneObject, gameTwoObject, 30, true)
-        request.post(ratingsUrl, gameOneObject);
-        request.post(ratingsUrl, gameTwoObject);
+        
+      if (!findGameById(gameOne.id)) {
+        handlePost(gameOneObject);
+      } else {
+        handleUpdate(gameOneObject);
+      }
+
+      if (!findGameById(gameTwo.id)) {
+        handlePost(gameTwoObject);
+      } else {
+        handleUpdate(gameTwoObject);
+      }
+        
+    }
+
+    const handlePost = (gameRating) => {
+      const request = new Request();
+      request.post('/api/gameratings', gameRating);
+    }
+
+    const handleUpdate = (gameRating) => {
+      const request = new Request();
+      request.patch('/api/gameratings/update', gameRating);
     }
 
     const GetRandomIndex = () => {
@@ -207,9 +215,6 @@ const GameContainer = ({loggedInUser, setUser, sortByRating}) => {
             Ra.rating = Ra.rating + K * (0 - Pa);
             Rb.rating = Rb.rating + K * (1 - Pb);
         }
-
-        setGameRatingOne(Ra);
-        setGameRatingTwo(Rb);
       }
 
     return (

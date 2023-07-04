@@ -2,6 +2,7 @@ package com.example.gamerankings.controllers;
 
 import com.example.gamerankings.models.Game;
 import com.example.gamerankings.models.GameUser;
+import com.example.gamerankings.models.GameUserId;
 import com.example.gamerankings.models.User;
 import com.example.gamerankings.repositories.GameRepository;
 import com.example.gamerankings.repositories.GameUserRepository;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 @RestController
 public class GameUserController {
@@ -31,6 +34,10 @@ public class GameUserController {
         return new ResponseEntity<>(gameUserRepository.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/gameratings/{id}")
+    public ResponseEntity<Optional<GameUser>> getGame(@PathVariable Long id){
+        return new ResponseEntity<>(gameUserRepository.findById(id), HttpStatus.OK);
+    }
     @PostMapping(value = "/gameratings")
     public ResponseEntity<GameUser> postGameUser(@RequestBody Map<String, Object> payload){
         Object gameSlug = payload.get("game");
@@ -43,8 +50,14 @@ public class GameUserController {
         return new ResponseEntity<>(newGameUser, HttpStatus.CREATED);
     }
 
-    @PatchMapping(value = "/gameratings/{id}")
-    public ResponseEntity<GameUser> updateGameUser(@RequestBody GameUser gameUser) {
+    @PatchMapping(value = "/gameratings/update")
+    public ResponseEntity<GameUser> updateGameUser(@RequestBody Map<String, Object> payload) {
+        Object gameId = payload.get("game_id");
+        Object userId = payload.get("user_id");
+        Object rating = payload.get("rating");
+        GameUserId gameUserId = new GameUserId((long) parseInt(gameId.toString()), (long) parseInt(userId.toString()));
+        GameUser gameUser = gameUserRepository.findById(gameUserId);
+        gameUser.setRating(parseDouble(rating.toString()));
         gameUserRepository.save(gameUser);
         return new ResponseEntity<>(gameUser, HttpStatus.OK);
     }
