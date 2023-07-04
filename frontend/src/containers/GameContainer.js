@@ -4,7 +4,7 @@ import Request from '../helpers/request';
 import Game from '../components/games/Game';
 
 
-const GameContainer = ({loggedInUser, setUser, sortByRating}) => {
+const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
 
     const [games, setGames] = useState([]);
     const [gamesRatings, setGamesRatings] = useState([]);
@@ -50,7 +50,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating}) => {
 
     useEffect(() => {
       sortByRating();
-    }, [gameRatingOne, gameRatingTwo])
+    }, [gameOne, gameTwo])
     
     const handleClick = (game) => {
       setLoading(true);
@@ -66,6 +66,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating}) => {
         setGameOneWin(false)
       }
       getBothGames();
+      getUser();
     }
 
     const handleRatingsPost = (gameOne, gameTwo) => {
