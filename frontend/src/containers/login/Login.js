@@ -30,7 +30,7 @@ const Login = ({users, setUser, loggedIn, addUser, showCreateAccount, setShowCre
 
       if(user.name === name && user.password === password){
         setUser(user);
-        localStorage.setItem('user', JSON.stringify(user));
+        // localStorage.setItem('user', JSON.stringify(user));
         userFound = true;
         break;
       }

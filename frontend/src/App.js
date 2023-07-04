@@ -12,22 +12,43 @@ const App = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
   const [showCreateAccount, setShowCreateAccount] = useState(false);
 
+  let gameRatings = [];
+
   useEffect(() => {
     getUsers()
     // get user from localstorage
-    const loggedUser = localStorage.getItem("user")
-    // if user exists in storage set to state
-    if (loggedUser) {
-      const foundUser = JSON.parse(loggedUser)
-      setUser(foundUser);
-    }
+    // const loggedUser = localStorage.getItem("user")
+    // // if user exists in storage set to state
+    // if (loggedUser) {
+    //   const foundUser = JSON.parse(loggedUser)
+    //   setUser(foundUser);
+    // }
   }, [])
+
+  // useEffect(() => {
+  //   for(let user of users){
+
+  //     if(user.id === loggedInUser.id){
+  //       setUser(user);
+  //       break;
+  //     }
+  //   }
+  // }, [users])
 
   const getUsers = () => {
     const request = new Request()
     request.get("/api/users")
     .then((data) => {
       setUsers(data)
+    })
+  }
+
+  const getUser = () => {
+    const request = new Request()
+    const url = "/api/users/" + loggedInUser.id;
+    request.get(url)
+    .then((data) => {
+      setUser(data)
     })
   }
 
@@ -64,7 +85,7 @@ const App = () => {
           </>
         ) : (
           <>
-            <Route path="/*" element={<MainContainer loggedInUser={loggedInUser} sortByRating={sortByRating}/>} />
+            <Route path="/*" element={<MainContainer loggedInUser={loggedInUser} sortByRating={sortByRating} getUser={getUser}/>} />
           </>
         )}
       </Routes>
