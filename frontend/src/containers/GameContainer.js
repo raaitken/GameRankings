@@ -6,7 +6,7 @@ import GameDetail from '../components/games/GameDetail';
 import Game from '../components/games/Game';
 
 
-const GameContainer = ({loggedInUser, setUser}) => {
+const GameContainer = ({loggedInUser, setUser, sortByRating}) => {
 
     const [games, setGames] = useState([]);
     const [gameUsers, setGameUsers] = useState([]);
@@ -55,19 +55,9 @@ const GameContainer = ({loggedInUser, setUser}) => {
     }, [])
 
     useEffect(() => {
-      sortGames();
+      sortByRating();
     }, [gameRatingOne, gameRatingTwo])
     
-    const sortGames = () => {
-      // Sort list by rating
-      const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[0].rating - gameA.gameUsers[0].rating);
-      return gameRatings;
-    }
-    
-    const gameRatingsNodes = sortGames().map((gameRating, index) => {
-      return <li key={index}>{gameRating.name}</li>
-    })
-
     const handleClick = (game) => {
       setLoading(true);
       setTimeout(() => {
@@ -230,7 +220,7 @@ const GameContainer = ({loggedInUser, setUser}) => {
           <div className="phonegame">
             <h2>Your Top Games</h2>
             <ol>
-              {gameRatingsNodes}
+              {sortByRating()}
             </ol>
           </div>
           
