@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import static java.lang.Double.parseDouble;
+import static java.lang.Integer.parseInt;
 
 @RestController
 public class GameUserController {
@@ -51,13 +52,11 @@ public class GameUserController {
 
     @PatchMapping(value = "/gameratings/update")
     public ResponseEntity<GameUser> updateGameUser(@RequestBody Map<String, Object> payload) {
-        Object id = payload.get("id");
-        Object gameSlug = payload.get("game");
-        Object userName = payload.get("user");
+        Object gameId = payload.get("game_id");
+        Object userId = payload.get("user_id");
         Object rating = payload.get("rating");
-        Game game = gameRepository.findBySlug(gameSlug.toString());
-        User user = userRepository.findByName(userName.toString());
-        GameUser gameUser = gameUserRepository.findById((GameUserId) id);
+        GameUserId gameUserId = new GameUserId((long) parseInt(gameId.toString()), (long) parseInt(userId.toString()));
+        GameUser gameUser = gameUserRepository.findById(gameUserId);
         gameUser.setRating(parseDouble(rating.toString()));
         gameUserRepository.save(gameUser);
         return new ResponseEntity<>(gameUser, HttpStatus.OK);

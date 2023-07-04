@@ -81,10 +81,8 @@ const GameContainer = ({loggedInUser, setUser}) => {
     const handleRatingsPost = (gameOne, gameTwo) => {
 
       let gameOneObject = {
-        "id": {
-          "game_id": gameOne.id,
-          "user_id": loggedInUser.id
-        },
+        "game_id": gameOne.id,
+        "user_id": loggedInUser.id,
         "game": gameOne.slug,
         "user": loggedInUser.name,
         "rating": 1200
@@ -106,6 +104,7 @@ const GameContainer = ({loggedInUser, setUser}) => {
         )
 
         gameOneObject.rating = game.rating;
+        console.log(gameOneObject);
       }
 
       if (findGameById(gameTwo.id)) {
