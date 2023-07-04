@@ -40,6 +40,16 @@ const App = () => {
     setUser(updatedUsers);
   }
 
+  const sortByRating = () => {
+    /* findIndex() required to calculate the logged in user's index of gameUsers array */
+    const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[gameB.gameUsers.findIndex(i => i.id.user_id === loggedInUser.id)].rating - gameA.gameUsers[gameA.gameUsers.findIndex(i => i.id.user_id === loggedInUser.id)].rating);
+    console.log(gameRatings);
+    const gameRatingsNodes = gameRatings.map((gameRating, index) => {
+      return <li key={index}>{gameRating.name}</li>
+    })
+    return gameRatingsNodes
+  }
+
   return (
     <Router>
       {loggedInUser && <NavBar setUser={setUser} loggedInUser={loggedInUser}/>} {/* Show navigation bar only if user is logged in */}
@@ -54,7 +64,7 @@ const App = () => {
           </>
         ) : (
           <>
-            <Route path="/*" element={<MainContainer loggedInUser={loggedInUser} />} />
+            <Route path="/*" element={<MainContainer loggedInUser={loggedInUser} sortByRating={sortByRating}/>} />
           </>
         )}
       </Routes>
