@@ -89,7 +89,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
 
       if (findGameById(gameOne.id)) {
         const game = gamesRatings.find((gameRating) => 
-          (gameRating["id"]["game_id"] === gameOne.id && gameRating["id"]["user_id"] === loggedInUser.id)
+          (gameRating.id.game_id === gameOne.id && gameRating.id.user_id === loggedInUser.id)
         )
 
         gameOneObject.rating = game.rating;
@@ -98,7 +98,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
 
       if (findGameById(gameTwo.id)) {
         const game = gamesRatings.find((gameRating) => 
-          (gameRating["id"]["game_id"] === gameTwo.id && gameRating["id"]["user_id"] === loggedInUser.id)
+          (gameRating.id.game_id === gameTwo.id && gameRating.id.user_id === loggedInUser.id)
         )
 
         gameTwoObject.rating = game.rating;
