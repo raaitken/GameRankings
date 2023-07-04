@@ -4,7 +4,7 @@ import GameContainer from './GameContainer';
 import Login from './login/Login';
 import Ranking from '../components/Ranking';
 
-const MainContainer = ({ loggedInUser, setUser }) => {
+const MainContainer = ({ loggedInUser, setUser, sortByRating }) => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/login';
 
@@ -12,8 +12,8 @@ const MainContainer = ({ loggedInUser, setUser }) => {
     <div>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path='/games/*' element={<GameContainer loggedInUser={loggedInUser} setUser={setUser}/>} />
-        <Route path='/rankings/*' element={<Ranking loggedInUser={loggedInUser}/>} />
+        <Route path='/games/*' element={<GameContainer loggedInUser={loggedInUser} setUser={setUser} sortByRating={sortByRating}/>} />
+        <Route path='/rankings/*' element={<Ranking loggedInUser={loggedInUser} sortByRating={sortByRating}/>} />
       </Routes>
     </div>
   );
