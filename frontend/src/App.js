@@ -64,7 +64,7 @@ const App = () => {
   const sortByRating = () => {
     /* findIndex() required to calculate the logged in user's index of gameUsers array */
     const gameRatings = loggedInUser.games.sort((gameA, gameB) => gameB.gameUsers[gameB.gameUsers.findIndex(i => i.id.user_id === loggedInUser.id)].rating - gameA.gameUsers[gameA.gameUsers.findIndex(i => i.id.user_id === loggedInUser.id)].rating);
-    console.log(gameRatings);
+    // console.log(gameRatings);
     const gameRatingsNodes = gameRatings.map((gameRating, index) => {
       return <li key={index}>{gameRating.name}</li>
     })

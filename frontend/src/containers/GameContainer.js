@@ -13,7 +13,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     const [loading, setLoading] = useState(false);
-    const [gameOneWin, setGameOneWin] = useState(null);
+    const [gameTwoWin, setGameTwoWin] = useState(null);
 
     const ratingsUrl = '/api/gameratings';
     const request = new Request();
@@ -29,10 +29,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         })
         .then(getBothGames());
 
-      Promise.all([gameRatingPromise])
-        .then((data) => {
-          setGamesRatings(data[0]);
-        })
+      getGameRatings();
 
         const handleResize = () => {
           setIsDesktop(window.innerWidth >= 769);
@@ -61,12 +58,21 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
       handleRatingsPost(gameOne, gameTwo);
       
       if (game.id === gameOne.id) {
-        setGameOneWin(true)
+        setGameTwoWin(false)
       } else if (game.id === gameTwo.id) {
-        setGameOneWin(false)
+        setGameTwoWin(true)
       }
       getBothGames();
       getUser();
+      getGameRatings();
+    }
+
+    const getGameRatings = () => {
+      const request = new Request();
+      request.get('/api/gameratings')
+      .then((data) => {
+        setGamesRatings(data);
+      })
     }
 
     const handleRatingsPost = (gameOne, gameTwo) => {
@@ -93,7 +99,6 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         )
 
         gameOneObject.rating = game.rating;
-        console.log(gameOneObject);
       }
 
       if (findGameById(gameTwo.id)) {
