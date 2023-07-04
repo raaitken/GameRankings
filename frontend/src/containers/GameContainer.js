@@ -88,10 +88,8 @@ const GameContainer = ({loggedInUser, setUser}) => {
         "rating": 1200
       };
       let gameTwoObject = {
-        "id": {
-          "game_id": gameTwo.id,
-          "user_id": loggedInUser.id
-        },
+        "game_id": gameTwo.id,
+        "user_id": loggedInUser.id,
         "game": gameTwo.slug,
         "user": loggedInUser.name,
         "rating": 1200
