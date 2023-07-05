@@ -45,10 +45,6 @@ const NavBar = ({ setUser, loggedInUser }) => {
           <img src={RankingsImage} alt="Your Rankings" className="nav-icon" />
           <span>Your Rankings</span>
         </Link>
-        <Link to="/charts" className="phone-nav-item">
-          <img src={ChartsImage} alt="Charts" className="nav-icon" />
-          <span>Charts</span>
-        </Link>
         <Link to="/user" className="phone-nav-item">
           <img src={UsersImage} alt="Users" className="nav-icon" />
           <span>Users</span>
@@ -69,10 +65,10 @@ const NavBar = ({ setUser, loggedInUser }) => {
             <Link to="/games">Home</Link>
           </li>
           <li className="navbar-item">
-            <Link to="/charts">Charts</Link>
+            <Link to="/rankings">Rankings</Link>
           </li>
           <li className="navbar-item">
-            <Link to="/user">User</Link>
+            <Link to="/user">Users</Link>
           </li>
           <button className="button logout" onClick={handleLogout}>
             Logout
