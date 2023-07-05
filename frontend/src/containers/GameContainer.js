@@ -13,10 +13,9 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     const [loading, setLoading] = useState(false);
-    // const [gameOneWin, setGameOneWin] = useState(null);
-    const [gameOneWin, setGameOneWin] = useState(null);
-
-
+    const [gameOneWin, setGameOneWin] = useState(false);
+    const [gameTwoWin, setGameTwoWin] = useState(false);
+    
     const ratingsUrl = '/api/gameratings';
     const request = new Request();
 
@@ -46,19 +45,18 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
     }, [])
 
     useEffect(() => {
-      getBothGames();
-      getUser();
-      getGameRatings();
-    }, [gameOneWin])
+      if (gameOne === undefined || gameTwo === undefined) {
+        return;
+      }
+      handleRatingsPost(gameOne, gameTwo);
+    }, [gameOneWin, gameTwoWin])
     
     const handleClick = (game) => {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
       }, 1000);
-      
-      handleRatingsPost(gameOne, gameTwo);
-      
+            
       if (game.id === gameOne.id) {
         console.log("Clicked game: ", game);
         console.log("gameOne: ", gameOne);
@@ -69,16 +67,18 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         console.log("Clicked game: ", game);
         console.log("gameTwo: ", gameTwo);
         console.log("isGameOne?: ", game === gameOne);
-        setGameOneWin(false);
+        setGameTwoWin(true);
       }
-
+      getBothGames();
+      getUser();
+      getGameRatings();
     }
 
     let gameRatingNodes = sortByRating();
 
     useEffect(() => {
       sortByRating();
-    }, [gameOne, gameTwo])
+    }, [gameOne, gameTwo, gameOneWin])
 
     const getGameRatings = () => {
       const request = new Request();
@@ -122,7 +122,11 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         gameTwoObject.rating = game.rating;
       }
 
+      if (gameOneWin === true) {
         EloRating(gameOneObject, gameTwoObject, 30, gameOneWin)
+      } else if (gameTwoWin === true) {
+        EloRating(gameOneObject, gameTwoObject, 30, gameTwoWin)
+      }
         
       if (!findGameById(gameOne.id)) {
         handlePost(gameOneObject);
@@ -135,7 +139,6 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
       } else {
         handleUpdate(gameTwoObject);
       }
-        
     }
 
     const handlePost = (gameRating) => {
@@ -232,7 +235,8 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
             Rb.rating = Rb.rating + K * (1 - Pb);
         }
         console.log("gameOneWon?: ", gameOneWin);
-        // setGameTwoWin(null);
+        setGameOneWin(false);
+        setGameTwoWin(false);
       }
 
     return (
