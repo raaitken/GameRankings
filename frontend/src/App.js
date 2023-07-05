@@ -25,16 +25,6 @@ const App = () => {
     // }
   }, [])
 
-  // useEffect(() => {
-  //   for(let user of users){
-
-  //     if(user.id === loggedInUser.id){
-  //       setUser(user);
-  //       break;
-  //     }
-  //   }
-  // }, [users])
-
   const getUsers = () => {
     const request = new Request()
     request.get("/api/users")
