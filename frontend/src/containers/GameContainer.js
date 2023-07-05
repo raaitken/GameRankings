@@ -15,7 +15,37 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
     const [loading, setLoading] = useState(false);
     const [gameOneWin, setGameOneWin] = useState(false);
     const [gameTwoWin, setGameTwoWin] = useState(false);
-    
+    const [message, setMessage] = useState('');
+
+    const messages = [
+      'This is a toughie',
+      'The choice to end all choices',
+      'just one more pick',
+      'Easy decision surely',
+      'Wow',
+      'Never heard of them',
+      'Pick one then???',
+      'Dont judge a game by its cover',
+      'I feel like our communication is one way',
+      'Hurry up, idiot',
+      'The options are endless...',
+      'No pressure',
+      "Help me I'm trapped in a screen",
+      'I dont have all day',
+      "A classic",
+      "Wow what a matchup",
+      "How's your day been?",
+      "You've got this",
+      "We're all counting on you",
+      "I'd keep that ranking to myself if I were you",
+      "Back in my day we played outside",
+      "I hope you've been drinking enough water",
+      "Anyway...",
+      "2 games 1 ...choice"
+
+  
+    ]
+
     const ratingsUrl = '/api/gameratings';
     const request = new Request();
 
@@ -167,6 +197,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         }
         if (newGame.id !== gameTwo.id && newGame.id !== gameOne.id){
           setGameOne(newGame);
+          setMessage(getRandomMessage());
           break
         }
       }
@@ -180,6 +211,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         }
         if (newGame.id !== gameOne.id && newGame.id !== gameTwo.id){
           setGameTwo(newGame);
+          setMessage(getRandomMessage());
           break
         }
       }
@@ -195,10 +227,16 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         if (newGameOne.id !== newGameTwo.id) {
           setGameOne(newGameOne);
           setGameTwo(newGameTwo);
+          setMessage(getRandomMessage());
           break
         }
       }
     }
+
+    const getRandomMessage = () => {
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      return messages[randomIndex];
+    };
 
     const findGameById = (id) => {
       return loggedInUser.games.find((game) => {
@@ -239,66 +277,64 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         setGameTwoWin(false);
       }
 
-    return (
-      <div className="container">
-      <div className="row">
-        <div className='gameslist'>
-        {isDesktop && (
-          <div className="phonegame">
-            <h2>Your Top Games</h2>
-            <ol>
-              {gameRatingNodes}
-            </ol>
-          </div>
-          
-        )}
-        </div>
-        <div className='pics'>
-
-        <div className={isDesktop ? "col-lg-8" : "col-12"}>
+      return (
+        <div className="container">
           <div className="row">
-          {loading ? (
-            <div className="loading-bar">Saving your choice...</div>
-            ) : (
-              <>
-              <Game game={gameOne} handleClick={handleClick} />
-              <Game game={gameTwo} handleClick={handleClick} />
-            </>
-          )}
+            <div className='gameslist'>
+              {isDesktop && (
+                <div className="phonegame">
+                  <h2>Your Top Games</h2>
+                  <ol>
+                    {gameRatingNodes}
+                  </ol>
+                </div>
+              )}
+            </div>
+            <div className='pics'>
+              <div className={isDesktop ? "col-lg-8" : "col-12"}>
+                <div className="row">
+                  {loading ? (
+                    <div className="loading-bar">Saving your choice...</div>
+                  ) : (
+                    <>
+                      <Game game={gameOne} handleClick={handleClick} />
+                      <Game game={gameTwo} handleClick={handleClick} />
+                    </>
+                  )}
+                </div>
+                <div className="row">
+                  <div className="col-4">
+                    {!loading && (
+                      <button className="btn btn-primary custom-button" onClick={getGameOne}>
+                        Haven't played
+                      </button>
+                    )}
+                  </div>
+                  <div className="col-4">
+                    {!loading && (
+                      <button className="btn btn-primary custom-button" onClick={getBothGames}>
+                        Haven't played either
+                      </button>
+                    )}
+                  </div>
+                  <div className="col-4">
+                    {!loading && (
+                      <button className="btn btn-primary custom-button" onClick={getGameTwo}>
+                        Haven't played
+                      </button>
+                    )}
+                  </div>
+                </div>
+                {gameOne || gameTwo ? (
+                  <div className="message-box">
+                    <p>{message}</p>
+                  </div>
+                ) : null}
+              </div>
+            </div>
           </div>
-        
-
-<div className="row">
-<div className="col-4">
-  {!loading && (
-    <button className="btn btn-primary custom-button" onClick={getGameOne}>
-      Haven't played
-    </button>
-  )}
-</div>
-<div className="col-4">
-  {!loading && (
-    <button className="btn btn-primary custom-button" onClick={getBothGames}>
-      Haven't played either
-    </button>
-  )}
-</div>
-<div className="col-4">
-  {!loading && (
-    <button className="btn btn-primary custom-button" onClick={getGameTwo}>
-      Haven't played
-    </button>
-  )}
-</div>
-</div>
-
-</div>
         </div>
-      </div>
-    </div>
-
-
-  );
-}
-
+      );
+      
+                }
 export default GameContainer;
