@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './GameContainer.css';
 import Request from '../helpers/request';
 import Game from '../components/games/Game';
@@ -13,7 +13,9 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
     const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 769);
     const [isPhone, setIsPhone] = useState(window.innerWidth <= 768);
     const [loading, setLoading] = useState(false);
-    const [gameTwoWin, setGameTwoWin] = useState(null);
+    // const [gameOneWin, setGameOneWin] = useState(null);
+    const [gameOneWin, setGameOneWin] = useState(null);
+
 
     const ratingsUrl = '/api/gameratings';
     const request = new Request();
@@ -41,31 +43,42 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         return () => {
           window.removeEventListener('resize', handleResize);
         };
-
-        
     }, [])
 
     useEffect(() => {
-      sortByRating();
-    }, [gameOne, gameTwo])
+      getBothGames();
+      getUser();
+      getGameRatings();
+    }, [gameOneWin])
     
     const handleClick = (game) => {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
       }, 1000);
-
+      
       handleRatingsPost(gameOne, gameTwo);
       
       if (game.id === gameOne.id) {
-        setGameTwoWin(false)
-      } else if (game.id === gameTwo.id) {
-        setGameTwoWin(true)
+        console.log("Clicked game: ", game);
+        console.log("gameOne: ", gameOne);
+        console.log("isGameOne?: ", game === gameOne);
+        setGameOneWin(true);
+        
+      } else {
+        console.log("Clicked game: ", game);
+        console.log("gameTwo: ", gameTwo);
+        console.log("isGameOne?: ", game === gameOne);
+        setGameOneWin(false);
       }
-      getBothGames();
-      getUser();
-      getGameRatings();
+
     }
+
+    let gameRatingNodes = sortByRating();
+
+    useEffect(() => {
+      sortByRating();
+    }, [gameOne, gameTwo])
 
     const getGameRatings = () => {
       const request = new Request();
@@ -109,7 +122,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         gameTwoObject.rating = game.rating;
       }
 
-        EloRating(gameOneObject, gameTwoObject, 30, true)
+        EloRating(gameOneObject, gameTwoObject, 30, gameOneWin)
         
       if (!findGameById(gameOne.id)) {
         handlePost(gameOneObject);
@@ -210,7 +223,6 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         if (d === true) {
             Ra.rating = Ra.rating + K * (1 - Pa);
             Rb.rating = Rb.rating + K * (0 - Pb);
-            
         }
         
         // Case 2 When Player B wins
@@ -219,6 +231,8 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
             Ra.rating = Ra.rating + K * (0 - Pa);
             Rb.rating = Rb.rating + K * (1 - Pb);
         }
+        console.log("gameOneWon?: ", gameOneWin);
+        // setGameTwoWin(null);
       }
 
     return (
@@ -229,7 +243,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
           <div className="phonegame">
             <h2>Your Top Games</h2>
             <ol>
-              {sortByRating()}
+              {gameRatingNodes}
             </ol>
           </div>
           
