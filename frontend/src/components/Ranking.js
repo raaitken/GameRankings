@@ -16,7 +16,7 @@ const Ranking = ({loggedInUser, sortByRating}) => {
 
   return (
       <div className='leaderboard'>
-        <h2 className='leaderboard-title'>Your Top 100</h2>
+        <h2 className='leaderboard-title'>Your Top Games</h2>
         <ol className='leaderboard-list'>
           {sortByRating()}
         </ol>
