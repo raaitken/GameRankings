@@ -15,7 +15,36 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
     const [loading, setLoading] = useState(false);
     // const [gameOneWin, setGameOneWin] = useState(null);
     const [gameOneWin, setGameOneWin] = useState(null);
+    const [message, setMessage] = useState('');
 
+    const messages = [
+      'This is a toughie',
+      'The choice to end all choices',
+      'just one more pick',
+      'Easy decision surely',
+      'Wow',
+      'Never heard of them',
+      'Pick one then???',
+      'Dont judge a game by its cover',
+      'I feel like our communication is one way',
+      'Hurry up, idiot',
+      'The options are endless...',
+      'No pressure',
+      "Help me I'm trapped in a screen",
+      'I dont have all day',
+      "A classic",
+      "Wow what a matchup",
+      "How's your day been?",
+      "You've got this",
+      "We're all counting on you",
+      "I'd keep that ranking to myself if I were you",
+      "Back in my day we played outside",
+      "I hope you've been drinking enough water",
+      "Anyway...",
+      "2 games 1 ...choice"
+
+  
+    ]
 
     const ratingsUrl = '/api/gameratings';
     const request = new Request();
@@ -164,6 +193,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         }
         if (newGame.id !== gameTwo.id && newGame.id !== gameOne.id){
           setGameOne(newGame);
+          setMessage(getRandomMessage());
           break
         }
       }
@@ -177,6 +207,7 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         }
         if (newGame.id !== gameOne.id && newGame.id !== gameTwo.id){
           setGameTwo(newGame);
+          setMessage(getRandomMessage());
           break
         }
       }
@@ -192,10 +223,16 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         if (newGameOne.id !== newGameTwo.id) {
           setGameOne(newGameOne);
           setGameTwo(newGameTwo);
+          setMessage(getRandomMessage());
           break
         }
       }
     }
+
+    const getRandomMessage = () => {
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      return messages[randomIndex];
+    };
 
     const findGameById = (id) => {
       return loggedInUser.games.find((game) => {
@@ -287,6 +324,9 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
   )}
 </div>
 </div>
+<div className="message-box">
+          <p>{message}</p>
+        </div>
 
 </div>
         </div>
