@@ -272,69 +272,64 @@ const GameContainer = ({loggedInUser, setUser, sortByRating, getUser}) => {
         // setGameTwoWin(null);
       }
 
-    return (
-      <div className="container">
-      <div className="row">
-        <div className='gameslist'>
-        {isDesktop && (
-          <div className="phonegame">
-            <h2>Your Top Games</h2>
-            <ol>
-              {gameRatingNodes}
-            </ol>
-          </div>
-          
-        )}
-        </div>
-        <div className='pics'>
-
-        <div className={isDesktop ? "col-lg-8" : "col-12"}>
+      return (
+        <div className="container">
           <div className="row">
-          {loading ? (
-            <div className="loading-bar">Saving your choice...</div>
-            ) : (
-              <>
-              <Game game={gameOne} handleClick={handleClick} />
-              <Game game={gameTwo} handleClick={handleClick} />
-            </>
-          )}
+            <div className='gameslist'>
+              {isDesktop && (
+                <div className="phonegame">
+                  <h2>Your Top Games</h2>
+                  <ol>
+                    {gameRatingNodes}
+                  </ol>
+                </div>
+              )}
+            </div>
+            <div className='pics'>
+              <div className={isDesktop ? "col-lg-8" : "col-12"}>
+                <div className="row">
+                  {loading ? (
+                    <div className="loading-bar">Saving your choice...</div>
+                  ) : (
+                    <>
+                      <Game game={gameOne} handleClick={handleClick} />
+                      <Game game={gameTwo} handleClick={handleClick} />
+                    </>
+                  )}
+                </div>
+                <div className="row">
+                  <div className="col-4">
+                    {!loading && (
+                      <button className="btn btn-primary custom-button" onClick={getGameOne}>
+                        Haven't played
+                      </button>
+                    )}
+                  </div>
+                  <div className="col-4">
+                    {!loading && (
+                      <button className="btn btn-primary custom-button" onClick={getBothGames}>
+                        Haven't played either
+                      </button>
+                    )}
+                  </div>
+                  <div className="col-4">
+                    {!loading && (
+                      <button className="btn btn-primary custom-button" onClick={getGameTwo}>
+                        Haven't played
+                      </button>
+                    )}
+                  </div>
+                </div>
+                {gameOne || gameTwo ? (
+                  <div className="message-box">
+                    <p>{message}</p>
+                  </div>
+                ) : null}
+              </div>
+            </div>
           </div>
-        
-
-<div className="row">
-<div className="col-4">
-  {!loading && (
-    <button className="btn btn-primary custom-button" onClick={getGameOne}>
-      Haven't played
-    </button>
-  )}
-</div>
-<div className="col-4">
-  {!loading && (
-    <button className="btn btn-primary custom-button" onClick={getBothGames}>
-      Haven't played either
-    </button>
-  )}
-</div>
-<div className="col-4">
-  {!loading && (
-    <button className="btn btn-primary custom-button" onClick={getGameTwo}>
-      Haven't played
-    </button>
-  )}
-</div>
-</div>
-<div className="message-box">
-          <p>{message}</p>
         </div>
-
-</div>
-        </div>
-      </div>
-    </div>
-
-
-  );
-}
-
+      );
+      
+                }
 export default GameContainer;
